@@ -35,33 +35,37 @@ export const getPage = (itemsPerPage:number = 10) => {
     }
 };
 
-// THIS FUNCTION IS INCOMPLETE
-export const loggedInProfile = (userName:string = '2renkov') => {
-    // comment the part below this comment and call axios above this comment.
-    return {
-        type: 'LOGGED_IN_PROFILE',
-        payload: {
-            userName: userName,
-        },
-    };
+export const userImagesActionCreator = (username:string = '2renkov') => {
+    // return an action
+    return async function (dispatch:Function, getState:object){
+        const response1:any = await sendNetworkRequest(`/users/${username}/photos`, { username: username,});
+        console.log( `userImagesActionCreator/action`, response1 );
+        let userImagesURLList:Array<string> = response1.data.map( (imgObj:any) => imgObj.urls.regular );
+        console.log( `After:userImagesActionCreator/action`, userImagesURLList );
+        dispatch({
+                type: 'USER_IMAGES_LIST',
+                payload:{
+                    userImagesURLList: userImagesURLList,
+                }
+        }); 
+    }
 };
-
-export const selectedUser = (selectedUser:string = '2renkov') => {
+export const visitSelectedUserActionCreator = (index:number = 1, username:string = '2renkov') => {
     return async function (dispatch:Function, getState:object){
         // const response = await sendNetworkRequest(itemsPerPage);
         try{
-            const response1:any = await sendNetworkRequest(`/users/${selectedUser}`, { username: selectedUser,});
-            console.log(`selectedUser/action`, response1);
+            const response1:any = await sendNetworkRequest(`/users/${username}`, { username: username,});
+            // console.log(`visitSelectedUser/action`, response1);
             dispatch({
-                    type: 'SELECTED_USER',
+                    type: 'VISIT_SELECTED_USER',
                     payload:{
                         userData: response1,
-                    }
+                    },
             });
         }catch(err){
-            console.log(`errorCatch<==>selectedUser/actionCreators`, err);
+            console.log(`errorCatch<==>visitSelectedUser/actionCreators`, err);
             dispatch({
-                type: 'SELCTED_USER',
+                type: 'VISIT_SELECTED_USER',
                 payload:{
                     userData: `Error occured`,
                 }
@@ -70,8 +74,8 @@ export const selectedUser = (selectedUser:string = '2renkov') => {
     }
     // return {
     //     type: 'SELCTED_USER',
-    //     payload: {
-    //         selectedUser: selectedUser,
+    //     payload:{
+    //     userData: response1,
     //     },
     // };
 };
@@ -84,6 +88,18 @@ export const likePressActionCreator = (index:number = 0) => {
         }
     }
 }
+
+
+// THIS FUNCTION IS INCOMPLETE
+export const loggedInProfile = (userName:string = '2renkov') => {
+    // comment the part below this comment and call axios above this comment.
+    return {
+        type: 'LOGGED_IN_PROFILE',
+        payload: {
+            userName: userName,
+        },
+    };
+};
 // export const getUserProfile = ( userName:string) => {
 //     return async function (dispatch:Function, getState:object){
 //         // const response = await sendNetworkRequest(itemsPerPage);
@@ -102,6 +118,7 @@ const cleanedResponse = (response:any):Array<ImgMetaData> => {
     let imagesObj:any = response.data;
     console.log(`sendNetworkRequest/actionCreators `, imagesObj);
     let tempImgList:Array<ImgMetaData> = imagesObj.map( (imageObj:any) => {
+        // let image:ImgMetaData = imageObj;
         let image:ImgMetaData = {
             url: ``,
             caption: ``,
@@ -122,30 +139,12 @@ const sendNetworkRequest = async (URI:string, params:Object):Promise<any> => {
 
     // Q: How do I add error handling? (Here, suppose net rqst fails. So this Promise should return `reject();`)
     let response:any = await axios.get(`https://api.unsplash.com${URI}`, {
-    // let response:any = await axios.get(`https://api.unsplash.com`+URI, {
-        // params: { query: 'party', count: itemsPerPage },
         params: params,
         headers: {
                 Authorization: 'Client-ID B0lyINmsrENvvv75E_HItGpAp7vHXschObEogo542tY'
             }
     });
     return response;
-    // let imagesObj:any = response.data;
-    // console.log(`sendNetworkRequest/actionCreators `, imagesObj);
-    // let tempImgList:Array<ImgMetaData> = imagesObj.map( (imageObj:any) => {
-    //     let image:ImgMetaData = {
-    //         url: ``,
-    //         caption: ``,
-    //         likes: 0,
-    //         id: ``,
-    //         likedByUser: true,
-    //         location: ``,
-    //         user:{},
-    //     };
-    //     bind(image, imageObj);
-    //     return image;
-    // } );
-    // return tempImgList;
 };
 const bind = (image:ImgMetaData, imagesObj:any) => {
     image.url = imagesObj.urls.regular;

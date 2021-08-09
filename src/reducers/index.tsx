@@ -10,52 +10,46 @@ export const imagesMetaDataReducer = (imagesMetaData:Array<ImgMetaData>=[], acti
     }
     return imagesMetaData;
 };
+export const selectedUserImagesPortfolioReducer = (visitingUserImagesURLList:Array<string> = [], action:action) => {
+    const {type, payload} = action;
+    if(type==='USER_IMAGES_LIST'){
+        console.log(`selectedUserImagesPortfolioReducer/reducer`,payload.userImagesURLList)
+        return [...payload.userImagesURLList];
+    }
+    return visitingUserImagesURLList;
+}
+// Q: How to implement userData type in 1st parameter of userDataReducer?
+export const visitSelectedUserReducer = (visitingUser:visitingUser = {}, action: action) => {
+    // make a constant file const GET_..., and import it
+    if(action.type === `VISIT_SELECTED_USER`){
+        console.log(`userDataReducer/reducers`, action.payload.userData);
+        const { username, instagram_username, bio, followers, following, profile_image, total_photos } = action.payload.userData.data;
+        let userDataTemp:visitingUser = {
+            username: username,
+            growwgramId: instagram_username,
+            bio: bio,
+            followers: followers,
+            following: following,
+            profilePicture: profile_image.large,
+            posts: total_photos,
+        }
+        return userDataTemp;
+    }
+    return visitingUser;
+};
+
+// Function currently not in use
 export const currentUserReducer = (username:string = '2renkov', action:action) => {
     if( action.type === 'LOGGED_IN_PROFILE' ){
         return action.payload.userName;
     }
     return username;
 };
-// Q: How to implement userData type in 1st parameter of userDataReducer?
-export const userDataReducer = (userData:userData = {}, action: action) => {
-    // make a constant file const GET_..., and import it
-    if(action.type === 'GET_USER_PROFILE' || action.type === `SELECTED_USER`){
-        console.log(`userDataReducer/reducers`, action);
-        let userDataTemp:userData = {
-            userName: action.payload.userData.data.username,
-            growwgramId: action.payload.userData.data.instagram_username,
-            bio: action.payload.userData.data.bio,
-            followers: action.payload.userData.data.followers,
-            following: action.payload.userData.data.following,
-            profilePicture: action.payload.userData.data.profile_image.small,
-        }
-        return userDataTemp;
-    }
-    return userData;
-}
-// export const handleLikeReducer = (imagesMetaData:Array<ImgMetaData> =  [], action: action) => {
-//     if(action.type=== 'CHANGE_LIKE_VALUE'){
-//         let tempImgList:Array<ImgMetaData> = [];
-//         for( let i = 0; i < imagesMetaData.length ; i++ ){
-//             if(imagesMetaData[i].user.userName === action.payload.username){
-//                 console.log(`handleLikeReducer/reducer... saved`)
-//                 let imgMetaData:ImgMetaData = imagesMetaData[i];
-//                 imgMetaData.user.userName = action.payload.username;
-//                 tempImgList.push(imgMetaData);
-//             }
-//             else{
-//                 tempImgList.push(imagesMetaData[i]);
-//             }
-//         }
-//         return tempImgList;
-//     }
-//     return imagesMetaData;
-// }
 export default combineReducers({
     imagesMetaData: imagesMetaDataReducer,
     loggedInProfile: currentUserReducer,
-    userData: userDataReducer,
-
+    visitingUser: visitSelectedUserReducer,
+    visitingUserImagesURLList: selectedUserImagesPortfolioReducer,
 });
 const changeLikeValue = (index:number, imagesMetaData:Array<ImgMetaData>) => {
     console.log(`Is changeLikeValue even running?`);
@@ -92,7 +86,13 @@ type CHANGE_LIKE_VALUE = {
         index: number;
     }
 }
-type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | CHANGE_LIKE_VALUE;
+type USER_IMAGES_LIST = {
+    type: string;
+    payload: {
+        userImagesURLList: Array<string>;
+    }
+};
+type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | CHANGE_LIKE_VALUE | USER_IMAGES_LIST;
 type ImgMetaData = {
     url: string;
     caption: string;
@@ -103,11 +103,12 @@ type ImgMetaData = {
     user: any;
 };
 // If you don't want to initialize obj in argument list line, then add ?. here
-type userData = {
-    userName?: string;
+type visitingUser = {
+    username?: string;
     growwgramId?: string;
     bio?: string;
     followers?: number;
     following?: number;
     profilePicture?: string;
+    posts?: number;
 }

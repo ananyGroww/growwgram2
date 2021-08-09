@@ -6,15 +6,16 @@ import { Link } from 'react-router-dom';
 import { faGrimace } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { selectedUser } from '../actions';
+import { visitSelectedUserActionCreator } from '../actions';
 import LocationOfPoster from '../common/Card/LocationOfPoster';
 import NameOfPoster from '../common/Card/NameOfPoster';
 
 class CardTopBanner extends React.Component<Props>{
     gotoProfile = () => {
-        const { imagesMetaData, index } = this.props;
+        const { imagesMetaData, index, visitSelectedUserActionCreator } = this.props;
+        const { username } = imagesMetaData[index].user;
         console.log(`gotoProfile/CardTopBanner`, imagesMetaData[index].user);
-        this.props.selectedUser(imagesMetaData[index].user.username);
+        visitSelectedUserActionCreator(index, username);
     }
     render(){
         const { imagesMetaData, index } = this.props;
@@ -43,12 +44,12 @@ class CardTopBanner extends React.Component<Props>{
 const mapStateToProps = (state:ReduxState) => {
     return {imagesMetaData: state.imagesMetaData};
 }
-export default connect(mapStateToProps, { selectedUser: selectedUser, })(CardTopBanner);
+export default connect(mapStateToProps, { visitSelectedUserActionCreator: visitSelectedUserActionCreator, })(CardTopBanner);
 // Q: Don't we have to include here what we have imported into props using then mapStateToProps function?
 // A: Yes, we do!
 type Props = {
     index: number;
-    selectedUser: Function;
+    visitSelectedUserActionCreator: Function;
     imagesMetaData: Array<ImgMetaData>;
 };
 type ImgMetaData = {
