@@ -18,6 +18,7 @@ class CardTopBanner extends React.Component<Props>{
                 {/* Q: Suppose `/profile`'s componentDidMount() is finished before the reducer of actionCreator (called in gotoProfile)
                         is finished. In this case an error will occur. How to catch and recover from this error? */}
                 <Link to='/profile'>
+                    {/* Q: How to make below onClick work in <NameOfPoster/> so that I can remove this redundant <div/>? */}
                     <div onClick={this.gotoProfile}>
                         <NameOfPoster growwId={this.props.imgMetaData.user.instagram_username}/>
                     </div>

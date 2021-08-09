@@ -15,7 +15,7 @@ class NewsFeed extends React.Component<Props, ClassState>{
         return this.props.imagesMetaData.map( (image:ImgMetaData) => <Card key={image.id} imgMetaData={image}/> );
     }
     render(){
-        console.log(`render/NewsFeed`,this.props);
+        // console.log(`render/NewsFeed`,this.props);
         return(
             <div className='newsFeed0133root'>
                 {this.renderCardsList()}

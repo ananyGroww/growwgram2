@@ -1,4 +1,3 @@
-
 /* Groww custom CSS start */
 html.color-theme-in-transition,
 html.color-theme-in-transition *,
@@ -226,6 +225,30 @@ body{
     --shadow-spread-bottom: 10px;
     --max-width-card: 230px;
 }
+.button  {
+    display: inline-block;
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    background-color: var(--constantGrowwYellow150);
+    /* cursor: pointer; */
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+/* Q: When hovering over button, only sun, 
+    is highlighted. How to make whole 
+    button color change? 
+    A: Don't put space around colon `:`*/
+.button:hover {
+    background-color: var(--primaryClr60);
+}
+.button:active {
+    transform: scale(0.99);
+}
 .src0133root{
     background-color: var(--primaryBg);
     color: var(--text);
@@ -247,40 +270,9 @@ a:hover {
 .growwgram0133header{
     color: var(--primaryClr);
 }
-.theme0133src  {
-    display: inline-block;
-    border: none;
-    padding: 0;
-    margin: 0;
-    /* color: var(--constantSecondaryClr10); */
-    text-decoration: none;
-    background-color: var(--primaryClr);
-    font-family: sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    transition: background 250ms ease-in-out, 
-                transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+.theme0133header{
     width: 50px;
     border-radius: 5px;
-}
-/* Q: When hovering over button, only sun, 
-    is highlighted. How to make whole 
-    button color change? */
-.theme0133src :hover,
-.theme0133src :focus {
-    background-color: var(--primaryClr60);
-}
-
-.theme0133src :focus {
-    /* outline: 1px solid #fff; */
-    outline-offset: -4px;
-}
-
-.theme0133src :active {
-    transform: scale(0.99);
 }
 .newsFeed0133root{
     padding:10px;
@@ -295,14 +287,14 @@ a:hover {
     border: 1px solid var(--border);
     background-color: var(--cardBackground);
     border-radius: 5px;
-    /* box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset; */
-    /* box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, 
-    rgb(209, 213, 219) 0px 0px 0px 1px inset; */
+    box-shadow: var(--boxShadow) 0px 0px 0px 1px; 
 }
-
 .CardTopBanner{
     align-self: flex-start;
     margin: 0 5px;
+}
+.growwId0133CardTopBanner{
+    border-bottom: 1px solid var(--border);
 }
 .image{
     /* https://stackoverflow.com/a/38926886 */
@@ -344,3 +336,15 @@ a:hover {
 .cardBottomBanner0133CardBottomBanner > :nth-child(n){
     margin: 0 5px;
 }
+.footer0133src{
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--secondaryClr150);
+    color: var(--constantWhite);
+}
+.footer0133src a:hover{
+    text-decoration: none;
+}
+/* .footer0133src > *{
+    flex-grow: 1;
+} */

@@ -8,7 +8,7 @@ type Props = {
 export default class NameOfPoster extends React.Component<Props>{
     render(){
         return(
-            <div>
+            <div className='growwId0133CardTopBanner'>
                 {this.props.growwId}
             </div>
         );

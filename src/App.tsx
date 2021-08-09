@@ -21,13 +21,16 @@ class App extends React.Component<Props, State> {
     constructor(props:Props){
         super(props);
         this.state = {
-            darkMode: false,
+            darkMode: localStorage.getItem("DARK_MODE")==='light'? false: true,
         }
     }
     toggleDarkMode = () => {
+        localStorage.setItem("DARK_MODE", this.state.darkMode?'dark':'light');
         this.state.darkMode ? this.setState({darkMode: false}) : this.setState({darkMode: true})
     }
     currentTheme(){
+        // https://www.pullrequest.com/blog/create-a-persisting-dark-mode-with-react/
+        localStorage.setItem("DARK_MODE", this.state.darkMode?'dark':'light');
         return this.state.darkMode? 'dark' : 'light';
     }
     render(){
@@ -38,7 +41,7 @@ class App extends React.Component<Props, State> {
                     <div className='growwgram0133header'>
                         Growwgram
                     </div>
-                    <button className='theme0133src' onClick={this.toggleDarkMode}>
+                    <button className='theme0133header button' onClick={this.toggleDarkMode}>
                         {this.currentTheme() === 'light'? <FontAwesomeIcon icon={faSun} size='lg'/> : <FontAwesomeIcon icon={faCloudMoonRain} size='lg'/> }
                     </button>
                 </div>
