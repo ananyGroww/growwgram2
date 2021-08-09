@@ -225,6 +225,11 @@ body{
     --shadow-spread-bottom: 10px;
     --max-width-card: 230px;
 }
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 .button  {
     display: inline-block;
     border: none;
@@ -265,20 +270,27 @@ a:hover {
     box-shadow: var(--boxShadow) 0px var(--shadow-spread-bottom) var(--shadow-spread-bottom) -10px;
     margin-bottom: var(--shadow-spread-bottom);
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-around; */
+}
+.header0133src :not(:first-child){
+    padding: 0 20px;
+    /* background-color: #00D09C; */
 }
 .growwgram0133header{
     color: var(--primaryClr);
 }
+.push0133header {
+    margin-left: auto;
+}
 .theme0133header{
-    width: 50px;
     border-radius: 5px;
 }
 .newsFeed0133root{
     padding:10px;
 }
 .card{
-    margin: 5px auto;
+    --card-margin: 5px;
+    margin: var(--card-margin) auto;
     max-width: var(--max-width-card);
     display: flex;
     flex-direction: column;
@@ -291,7 +303,15 @@ a:hover {
 }
 .CardTopBanner{
     align-self: flex-start;
-    margin: 0 5px;
+    margin: 0 var(--card-margin);
+    display: flex;
+    font-size: xx-small;
+}
+.pfp0133CardTopBanner{
+    margin: auto;
+    margin-right: 10px;
+    font-size: xx-large;
+    padding: 1px;
 }
 .growwId0133CardTopBanner{
     border-bottom: 1px solid var(--border);
@@ -302,7 +322,7 @@ a:hover {
     object-fit: cover;
     width:var(--max-width-card);
     height:var(--max-width-card);
-    margin: 16px;
+    margin: calc(var(--card-margin)*3);
     margin-top: 0;
     transition: transform 0.4s;
     /* https://getcssscan.com/css-box-shadow-examples #87 */
@@ -317,7 +337,7 @@ a:hover {
 .image:hover{
     object-fit: cover;
     transform: scale(1.2);
-    margin: 16px;
+    margin: calc(var(--card-margin)*3);
     margin-top: 0;
     /* https://getcssscan.com/css-box-shadow-examples #87 */
     /* box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color]; */
@@ -327,14 +347,22 @@ a:hover {
                 var(--boxShadow) 0px 16px 8px, 
                 var(--boxShadow) 0px 32px 16px;
 }
-.cardBottomBanner0133CardBottomBanner{
-    padding-bottom: 10px;
+.list0133CardBottomBanner{
+    padding-bottom: 2px;
     display: flex;
     width: var(--max-width-card);
-    justify-content: space-between;
+    /* justify-content: space-evenly; */
 }
-.cardBottomBanner0133CardBottomBanner > :nth-child(n){
-    margin: 0 5px;
+.list0133CardBottomBanner > :not(:last-child){
+    margin: 0 var(--card-margin);
+}
+.push0133cardBottomBanner {
+    margin-left: auto;
+    margin-right: var(--card-margin);
+}
+.caption0133 {
+    margin: 0 var(--card-margin) 2px var(--card-margin) ;
+    font-size: xx-small;
 }
 .footer0133src{
     display: flex;
@@ -345,6 +373,3 @@ a:hover {
 .footer0133src a:hover{
     text-decoration: none;
 }
-/* .footer0133src > *{
-    flex-grow: 1;
-} */

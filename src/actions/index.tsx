@@ -2,11 +2,13 @@ import axios from 'axios';
 
 // Action Creator
 // Q: How to define types of functions `getNewPage` & the `async function` 3 lines below?
+
+// define actions with []action
 export const getNewPage = (itemsPerPage:number = 10) => {
     // return an action
     return async function (dispatch:Function, getState:object){
         // const response = await sendNetworkRequest(itemsPerPage);
-        const response1:any = await sendNetworkRequest(itemsPerPage, `/photos/random`, { query: 'party', count: itemsPerPage });
+        const response1:any = await sendNetworkRequest(`/photos/random`, { query: 'party', count: itemsPerPage });
         // console.log(`render/action`, response, response instanceof Array);
         let imgObjList = cleanedResponse(response1);
         dispatch({
@@ -21,7 +23,7 @@ export const getPage = (itemsPerPage:number = 10) => {
     // return an action
     return async function (dispatch:Function, getState:object){
         // const response = await sendNetworkRequest(itemsPerPage);
-        const response1:any = await sendNetworkRequest(itemsPerPage, `/photos/random`, { query: 'party', count: itemsPerPage });
+        const response1:any = await sendNetworkRequest(`/photos/random`, { query: 'party', count: itemsPerPage });
         // console.log(`render/action`, response, response instanceof Array);
         let imgObjList = cleanedResponse(response1);
         dispatch({
@@ -48,11 +50,10 @@ export const selectedUser = (selectedUser:string = '2renkov') => {
     return async function (dispatch:Function, getState:object){
         // const response = await sendNetworkRequest(itemsPerPage);
         try{
-            const response1:any = await sendNetworkRequest(0, `/users/:username`, { username: selectedUser,});
-            // const response1:any = await sendNetworkRequest(0, `/users${selectedUser}`, { username: selectedUser,});
+            const response1:any = await sendNetworkRequest(`/users/${selectedUser}`, { username: selectedUser,});
             console.log(`selectedUser/action`, response1);
             dispatch({
-                    type: 'SELCTED_USER',
+                    type: 'SELECTED_USER',
                     payload:{
                         userData: response1,
                     }
@@ -74,7 +75,16 @@ export const selectedUser = (selectedUser:string = '2renkov') => {
     //     },
     // };
 };
-
+export const handleLikePressActionCr = (username: string = ``, isLiked:boolean = false) => {
+    console.log(`handleLikePressActionCr/action.. handling Like press...`, isLiked)
+    return {
+        type: 'CHANGE_LIKE_VALUE',
+        payload : {
+            username: username,
+            isLiked: isLiked,
+        }
+    }
+}
 // export const getUserProfile = ( userName:string) => {
 //     return async function (dispatch:Function, getState:object){
 //         // const response = await sendNetworkRequest(itemsPerPage);
@@ -88,28 +98,6 @@ export const selectedUser = (selectedUser:string = '2renkov') => {
 //         }); 
 //     }
 // }
-// A real user obj from get request.
-// user:
-    // accepted_tos: true
-    // bio: "My instagram: aiony .\r\nFilm and digital photographer.\r\nAmbassador Canon Kazakhstan.\r\nWorldwide!\r\n\r\nConnect: aionytoday@gmail.com"
-    // first_name: "Aiony"
-    // for_hire: false
-    // id: "82ckjvxTQdk"
-    // instagram_username: "aiony"
-    // last_name: "Haust"
-    // links: {self: "https://api.unsplash.com/users/aiony", html: "https://unsplash.com/@aiony", photos: "https://api.unsplash.com/users/aiony/photos", likes: "https://api.unsplash.com/users/aiony/likes", portfolio: "https://api.unsplash.com/users/aiony/portfolio", …}
-    // location: "Kazakhstan/Astana"
-    // name: "Aiony Haust"
-    // portfolio_url: "https://www.instagram.com/aiony"
-    // profile_image: {small: "https://images.unsplash.com/profile-1539616908003-…&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=32&w=32", medium: "https://images.unsplash.com/profile-1539616908003-…&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=64&w=64", large: "https://images.unsplash.com/profile-1539616908003-…m=jpg&crop=faces&cs=tinysrgb&fit=crop&h=128&w=128"}
-    // social: {instagram_username: "aiony", portfolio_url: "https://www.instagram.com/aiony", twitter_username: null, paypal_email: null}
-    // total_collections: 0
-    // total_likes: 11
-    // total_photos: 50
-    // twitter_username: null
-    // updated_at: "2021-08-05T06:26:46-04:00"
-    // username: "aiony"
-    // __proto__: Object
 
 const cleanedResponse = (response:any):Array<ImgMetaData> => {
     let imagesObj:any = response.data;
@@ -129,7 +117,7 @@ const cleanedResponse = (response:any):Array<ImgMetaData> => {
     } );
     return tempImgList;
 }
-const sendNetworkRequest = async (itemsPerPage:number, URI:string, params:Object):Promise<any> => {
+const sendNetworkRequest = async (URI:string, params:Object):Promise<any> => {
     // Q: How to change below any in `response:any` to particular type?
     // A: You don't, for now. Groww does it though.
 

@@ -6,7 +6,7 @@ interface Props {
 export default class Caption extends React.Component<Props>{
     render(){
         return(
-            <div>
+            <div className='caption0133'>
                 {this.props.caption}
             </div>
         );

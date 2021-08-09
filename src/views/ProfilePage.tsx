@@ -15,21 +15,22 @@ class ProfilePage extends React.Component<Props>{
         return(
             <div>
                 Basic Scaffolding: Profile Page
+                {this.props.userData}
                 {/* {this.props.user.name}, {this.props.user.total_likes}
                 <ProfilePageCard user={this.props.user}/> */}
             </div>
         )
     };
 }
-const mapStateToProps = (state: ReduxState) => {
-    console.log(`mapStateToProps/ProfilePage`,state);
-    return { userData: state.userData}
+const mapStateToProps = (state:ReduxState) => {
+    console.log(`mapStateToProps/ProfilePage`,state.userData);
+    return {userData: state.userData};
 }
-
 export default connect(mapStateToProps)(ProfilePage);
-
-type Props = {
-    userData: any;
+type ReduxState = {
+    imagesMetaData: Array<ImgMetaData>;
+    loggedInProfile: string;
+    userData: any,
 };
 type ImgMetaData = {
     url: string;
@@ -40,8 +41,8 @@ type ImgMetaData = {
     location: string;
     user: any;
 };
-type ReduxState = {
-    imagesMetaData: Array<ImgMetaData>;
-    loggedInProfile: string;
-    userData: any,
+type Props = {
+    userData: any;
+};
+type State = {
 };

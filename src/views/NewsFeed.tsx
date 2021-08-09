@@ -7,8 +7,11 @@ import Card from '../ui/Card';
 
 class NewsFeed extends React.Component<Props, ClassState>{
     componentDidMount(){
-        if(this.props.imagesMetaData.length === 0)
-            this.props.getNewPage();
+        // Destructuring
+        const {getNewPage, imagesMetaData} = this.props;
+
+        if(imagesMetaData.length === 0)
+            getNewPage();
     }
     renderCardsList():Array<JSX.Element>{
         console.log(`renderCardsHelper/NewsFeed`,this.props.imagesMetaData);
