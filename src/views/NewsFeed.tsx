@@ -17,7 +17,7 @@ class NewsFeed extends React.Component<Props, ClassState>{
     render(){
         console.log(`render/NewsFeed`,this.props);
         return(
-            <div>
+            <div className='newsFeed0133root'>
                 {this.renderCardsList()}
             </div>
         )

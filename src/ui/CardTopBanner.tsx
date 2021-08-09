@@ -14,7 +14,7 @@ class CardTopBanner extends React.Component<Props>{
     }
     render(){
         return(
-            <div>
+            <div className='CardTopBanner fs12'>
                 {/* Q: Suppose `/profile`'s componentDidMount() is finished before the reducer of actionCreator (called in gotoProfile)
                         is finished. In this case an error will occur. How to catch and recover from this error? */}
                 <Link to='/profile'>

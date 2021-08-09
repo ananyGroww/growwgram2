@@ -19,7 +19,7 @@ type Props = {
 class CardBottomBanner extends React.Component<Props>{
     render(){
         return(
-            <div>
+            <div className='cardBottomBanner0133CardBottomBanner fs12'>
                 <Likes noOfLikes={this.props.imgMetaData.likes} isLiked={this.props.imgMetaData.likedByUser}/>
                 <Caption caption={this.props.imgMetaData.caption}/>
             </div>

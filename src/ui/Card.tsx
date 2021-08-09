@@ -22,11 +22,10 @@ class Card extends React.Component<Props, State>{
     render(){
         // console.log(`render./Card `,this.props.imgMetaData.url);
         return(
-            <div>
+            <div className='card'>
                 <CardTopBanner imgMetaData={this.props.imgMetaData}/>
                 <CardPrimaryPicture imgMetaData={this.props.imgMetaData}/>
                 <CardBottomBanner imgMetaData={this.props.imgMetaData}/>
-                <hr/>
             </div>
         );
     }

@@ -7,15 +7,42 @@ import {
   Route,
 } from 'react-router-dom';
 
+import {
+  faCloudMoonRain,
+  faSun,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import Nav from './views/Nav';
 import NewsFeed from './views/NewsFeed';
 import ProfilePage from './views/ProfilePage';
 
-class App extends React.Component {
+class App extends React.Component<Props, State> {
+    constructor(props:Props){
+        super(props);
+        this.state = {
+            darkMode: false,
+        }
+    }
+    toggleDarkMode = () => {
+        this.state.darkMode ? this.setState({darkMode: false}) : this.setState({darkMode: true})
+    }
+    currentTheme(){
+        return this.state.darkMode? 'dark' : 'light';
+    }
     render(){
         return(
-            <div>
-                Basic Scaffolding: App
+            // Q: How to change `data-theme` property of html tag? (Here, I've just jerryrigged it to `src0133root` component)
+            <div className='src0133root' data-theme={this.currentTheme()}>
+                <div className='header0133src fs30'>
+                    <div className='growwgram0133header'>
+                        Growwgram
+                    </div>
+                    <button className='theme0133src' onClick={this.toggleDarkMode}>
+                        {this.currentTheme() === 'light'? <FontAwesomeIcon icon={faSun} size='lg'/> : <FontAwesomeIcon icon={faCloudMoonRain} size='lg'/> }
+                    </button>
+                </div>
+                {/* <div onClick={this.changeTheme} className='darkMode0133root'>floaty</div> */}
                 <BrowserRouter>
                     <Route path='/' exact component={NewsFeed}/>
                     <Route path='/profile' exact component={ProfilePage}/>
@@ -27,3 +54,7 @@ class App extends React.Component {
     };
 }
 export default App;
+type Props = {};
+type State = {
+    darkMode: boolean;
+};

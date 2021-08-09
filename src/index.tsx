@@ -15,10 +15,9 @@ import reducers from './reducers';
 
 const store = createStore(reducers,loadFromLocalStorage(), applyMiddleware(thunk));
 store.subscribe(() => saveToLocalStorage(store.getState()));
-
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
+            <App/>
     </Provider>
     , document.querySelector('#root')
 );
@@ -44,29 +43,3 @@ function loadFromLocalStorage() {
         return undefined;
     }
 }
-
-// OLD CODE. WITHOUT LOCALSTORAGE
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-
-// import { Provider } from 'react-redux';
-// import {
-//   applyMiddleware,
-//   createStore,
-// } from 'redux';
-// import thunk from 'redux-thunk';
-
-// import App from './App';
-// import reducers from './reducers';
-
-// const store = createStore(reducers, applyMiddleware(thunk));
-
-// ReactDOM.render(
-//     <Provider store={store}>
-//         <App/>
-//     </Provider>
-//     , document.querySelector('#root')
-// );
-
-// trying to implement local storage:
-// src: https://dev.to/link2twenty/react-redux-and-localstorage-2lih

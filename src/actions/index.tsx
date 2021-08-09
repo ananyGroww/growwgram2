@@ -161,7 +161,7 @@ const sendNetworkRequest = async (itemsPerPage:number, URI:string, params:Object
     // return tempImgList;
 };
 const bind = (image:ImgMetaData, imagesObj:any) => {
-    image.url = imagesObj.urls.thumb;
+    image.url = imagesObj.urls.regular;
     image.caption = imagesObj.description;
     image.likes = imagesObj.likes;
     image.id = imagesObj.id;

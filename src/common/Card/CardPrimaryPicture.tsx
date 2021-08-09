@@ -17,7 +17,7 @@ export default class CardPrimaryPicture extends React.Component<Props, State>{
     render(){
         return(
             <div>
-                <img src={this.props.imgMetaData.url} alt={this.props.imgMetaData.caption}/>
+                <img className='image' src={this.props.imgMetaData.url} alt={this.props.imgMetaData.caption}/>
             </div>
         );
     }
