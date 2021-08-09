@@ -45,20 +45,14 @@ class App extends React.Component<Props, State> {
                         <li className='growwgram0133header'>
                             Growwgram
                         </li>
-                        {/* <li class></li> */}
                         <li className='theme0133header push0133header' onClick={this.toggleDarkMode}>
-                            {/* <button className='button' onClick={this.toggleDarkMode}> */}
                                 {this.currentTheme() === 'light'? <FontAwesomeIcon icon={faSun} size='lg'/> : <FontAwesomeIcon icon={faCloudMoonRain} size='lg'/> }
-                            {/* </button> */}
                         </li>
                         <li className='myProfile0133header'>
-                            {/* <button className='button'> */}
                                 <FontAwesomeIcon icon={faIdBadge} size='lg'/>
-                            {/* </button> */}
                         </li>
                     </ul>
                 </nav>
-                {/* <div onClick={this.changeTheme} className='darkMode0133root'>floaty</div> */}
                 <BrowserRouter>
                     <Route path='/' exact component={NewsFeed}/>
                     <Route path='/profile' exact component={ProfilePage}/>

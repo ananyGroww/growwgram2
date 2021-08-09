@@ -12,10 +12,12 @@ import NameOfPoster from '../common/Card/NameOfPoster';
 
 class CardTopBanner extends React.Component<Props>{
     gotoProfile = () => {
-        console.log(`gotoProfile/CardTopBanner`, this.props.imgMetaData.user);
-        this.props.selectedUser(this.props.imgMetaData.user.username);
+        const { imagesMetaData, index } = this.props;
+        console.log(`gotoProfile/CardTopBanner`, imagesMetaData[index].user);
+        this.props.selectedUser(imagesMetaData[index].user.username);
     }
     render(){
+        const { imagesMetaData, index } = this.props;
         return(
             <div className='CardTopBanner fs12'>
                 <FontAwesomeIcon className='pfp0133CardTopBanner' icon={faGrimace} size='lg'/>
@@ -26,26 +28,28 @@ class CardTopBanner extends React.Component<Props>{
                         <Link to='/profile'>
                             {/* Q: How to make below onClick work in <NameOfPoster/> so that I can remove this redundant <div/>? */}
                             <div onClick={this.gotoProfile}>
-                                <NameOfPoster growwId={this.props.imgMetaData.user.instagram_username}/>
+                                <NameOfPoster growwId={imagesMetaData[index].user.instagram_username}/>
                             </div>
                         </Link>
                     </li>
                     <li>
-                        <LocationOfPoster location={this.props.imgMetaData.location}/>
+                        <LocationOfPoster location={imagesMetaData[index].location}/>
                     </li>
                 </ul>
             </div>
         );
     }
 }
-// export default CardTopBanner;
 const mapStateToProps = (state:ReduxState) => {
     return {imagesMetaData: state.imagesMetaData};
 }
 export default connect(mapStateToProps, { selectedUser: selectedUser, })(CardTopBanner);
+// Q: Don't we have to include here what we have imported into props using then mapStateToProps function?
+// A: Yes, we do!
 type Props = {
-    imgMetaData: ImgMetaData;
+    index: number;
     selectedUser: Function;
+    imagesMetaData: Array<ImgMetaData>;
 };
 type ImgMetaData = {
     url: string;

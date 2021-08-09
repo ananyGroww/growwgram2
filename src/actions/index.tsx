@@ -75,13 +75,12 @@ export const selectedUser = (selectedUser:string = '2renkov') => {
     //     },
     // };
 };
-export const handleLikePressActionCr = (username: string = ``, isLiked:boolean = false) => {
-    console.log(`handleLikePressActionCr/action.. handling Like press...`, isLiked)
+export const likePressActionCreator = (index:number = 0) => {
+    console.log(`likePressActionCreator/action.. handling Like press...`)
     return {
         type: 'CHANGE_LIKE_VALUE',
         payload : {
-            username: username,
-            isLiked: isLiked,
+            index: index,
         }
     }
 }

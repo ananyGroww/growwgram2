@@ -1,6 +1,22 @@
 import React from 'react';
 
-interface ImgMetaData {
+import { connect } from 'react-redux';
+
+class CardPrimaryPicture extends React.Component<Props>{
+    render(){
+        const {imagesMetaData, index} = this.props;
+        return(
+            <div>
+                <img className='image' src={imagesMetaData[index].url} alt={imagesMetaData[index].caption}/>
+            </div>
+        );
+    }
+}
+const mapStateToProps = (state:ReduxState) => {
+    return({imagesMetaData: state.imagesMetaData});
+}
+export default connect(mapStateToProps)(CardPrimaryPicture);
+type ImgMetaData = {
     url: string;
     caption: string;
     likes: number;
@@ -9,16 +25,10 @@ interface ImgMetaData {
     location: string;
 }
 type Props = {
-    imgMetaData: ImgMetaData;
-}
-type State = {
+    index: number;
+    imagesMetaData: Array<ImgMetaData>;
 };
-export default class CardPrimaryPicture extends React.Component<Props, State>{
-    render(){
-        return(
-            <div>
-                <img className='image' src={this.props.imgMetaData.url} alt={this.props.imgMetaData.caption}/>
-            </div>
-        );
-    }
-}
+type ReduxState = {
+    imagesMetaData: Array<ImgMetaData>;
+    selectedUser: string;
+};

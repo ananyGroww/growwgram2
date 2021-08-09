@@ -4,30 +4,20 @@ import CardPrimaryPicture from '../common/Card/CardPrimaryPicture';
 import CardBottomBanner from './CardBottomBanner';
 import CardTopBanner from './CardTopBanner';
 
-interface ImgMetaData {
-    url: string;
-    caption: string;
-    likes: number;
-    id: string;
-    likedByUser: boolean;
-    location: string;
-    user: any;
-};
-type Props = {
-    imgMetaData: ImgMetaData;
-};
-type State = {
-};
-class Card extends React.Component<Props, State>{
+class Card extends React.Component<Props>{
     render(){
         // console.log(`render./Card `,this.props.imgMetaData.url);
+        const {index} = this.props;
         return(
             <div className='card'>
-                <CardTopBanner imgMetaData={this.props.imgMetaData}/>
-                <CardPrimaryPicture imgMetaData={this.props.imgMetaData}/>
-                <CardBottomBanner imgMetaData={this.props.imgMetaData}/>
+                <CardTopBanner index={index}/>
+                <CardPrimaryPicture index={index}/>
+                <CardBottomBanner index={index}/>
             </div>
         );
     }
 }
 export default Card;
+type Props = {
+    index: number;
+};

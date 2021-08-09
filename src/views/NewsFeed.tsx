@@ -14,8 +14,14 @@ class NewsFeed extends React.Component<Props, ClassState>{
             getNewPage();
     }
     renderCardsList():Array<JSX.Element>{
-        console.log(`renderCardsHelper/NewsFeed`,this.props.imagesMetaData);
-        return this.props.imagesMetaData.map( (image:ImgMetaData) => <Card key={image.id} imgMetaData={image}/> );
+        const { imagesMetaData } = this.props;
+        console.log(`renderCardsHelper/NewsFeed`,imagesMetaData);
+        let cards:Array<JSX.Element> = [];
+        for(let i = 0; i < imagesMetaData.length; i++) {
+            cards.push(<Card key={imagesMetaData[i].id} index={i}/>)
+        }
+        return cards;
+        // return this.props.imagesMetaData.map( (image:ImgMetaData) => <Card key={image.id} imgMetaData={image}/> );
     }
     render(){
         // console.log(`render/NewsFeed`,this.props);

@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
 export const imagesMetaDataReducer = (imagesMetaData:Array<ImgMetaData>=[], action:action) => {
-    switch (action.type){
+    const { type, payload } = action;
+    switch (type){
         // Had to remove this one below coz: When coming from `/profile` back to `/`, the old data gets appended with the same new data, thus duplicates occur.
         // case 'GET_NEW_PAGE': return [...imagesMetaData, ...action.payload.imagesObjList];
-        case 'GET_NEW_PAGE': return [...imagesMetaData, ...action.payload.imagesObjList];
-        case 'CHANGE_LIKE_VALUE': {console.log(`imagesMetaDataReducer/reducer... almost handled`, action.payload); return helperLikePress(imagesMetaData, action);}
+        case 'GET_NEW_PAGE': return [...imagesMetaData, ...payload.imagesObjList];
+        case 'CHANGE_LIKE_VALUE': {console.log(`imagesMetaDataReducer/reducer... almost handled. Action:`, action); return changeLikeValue(payload.index, imagesMetaData);}
     }
     return imagesMetaData;
 };
@@ -56,22 +57,18 @@ export default combineReducers({
     userData: userDataReducer,
 
 });
-const helperLikePress = (imagesMetaData:Array<ImgMetaData>=[], action:action) => {
-    console.log(`Is handleLikeReducer even running?`,imagesMetaData.length);
-    let tempImgList:Array<ImgMetaData> = [];
+const changeLikeValue = (index:number, imagesMetaData:Array<ImgMetaData>) => {
+    console.log(`Is changeLikeValue even running?`);
+    let tempimagesMetaData:Array<ImgMetaData> = [];
     for( let i = 0; i < imagesMetaData.length ; i++ ){
-        console.log(`for loop issue: `,imagesMetaData[i].user.username);
-        if(imagesMetaData[i].user.username === action.payload.username){
-            console.log(`helperLikePress/reducer... saved`)
-            let imgMetaData:ImgMetaData = imagesMetaData[i];
-            imgMetaData.likedByUser = action.payload.isLiked;
-            tempImgList.push(imgMetaData);
+        let tempimgMetaData:ImgMetaData = imagesMetaData[i];
+        if(i===index){
+            // console.log(`helperLikePress/reducer... saved`);
+            tempimgMetaData.likedByUser = !tempimgMetaData.likedByUser;
         }
-        else{
-            tempImgList.push(imagesMetaData[i]);
-        }
+        tempimagesMetaData.push(imagesMetaData[i]);
     }
-    return tempImgList;
+    return tempimagesMetaData;
 }
 type GET_NEW_PAGE = {
     type: string;
@@ -89,14 +86,13 @@ type USER_DATA = {
     type: string;
     payload: any;
 };
-type LIKE_ACTION = {
+type CHANGE_LIKE_VALUE = {
     type: string;
     payload: {
-        username: string;
-        isLiked: boolean;
+        index: number;
     }
 }
-type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | LIKE_ACTION;
+type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | CHANGE_LIKE_VALUE;
 type ImgMetaData = {
     url: string;
     caption: string;
@@ -106,7 +102,7 @@ type ImgMetaData = {
     location: string;
     user: any;
 };
-// to 
+// If you don't want to initialize obj in argument list line, then add ?. here
 type userData = {
     userName?: string;
     growwgramId?: string;

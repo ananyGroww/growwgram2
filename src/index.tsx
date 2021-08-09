@@ -15,6 +15,7 @@ import reducers from './reducers';
 
 const store = createStore(reducers,loadFromLocalStorage(), applyMiddleware(thunk));
 store.subscribe(() => saveToLocalStorage(store.getState()));
+
 ReactDOM.render(
     <Provider store={store}>
             <App/>

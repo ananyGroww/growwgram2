@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { handleLikePressActionCr } from '../actions';
+import { likePressActionCreator } from '../actions';
 import Caption from '../common/Card/Caption';
 import Likes from '../common/Card/Likes';
 
@@ -16,18 +16,21 @@ class CardBottomBanner extends React.Component<Props>{
     // https://reactjs.org/docs/faq-functions.html#class-properties-stage-3-proposal
     handleLike = () => {
         console.log(`handleLike/CardBottomBanner... pressed like`);
-        this.props.handleLikePressActionCr(this.props.imgMetaData.user.username, !this.props.imgMetaData.likedByUser);
+        const { likePressActionCreator, index } = this.props;
+        likePressActionCreator(index);
     }
     render(){
-        const {likedByUser, caption, likes} = this.props.imgMetaData;
+        
+        const {imagesMetaData, index} = this.props;
+        const {likes, likedByUser, caption} = imagesMetaData[index];
         // const {handleLikePressActionCr} = this.props.handleLikePressActionCr;
         
         return(
             <div>
                 <ul className='list0133CardBottomBanner fs12'>
                     <li onClick={this.handleLike}>
-                        {/* <Likes noOfLikes={likes} isLiked={likedByUser}/> */}
-                        <Likes noOfLikes={likes} isLiked={true}/>
+                    {/* <li> */}
+                        <Likes noOfLikes={likes} isLiked={likedByUser}/>
                     </li>
                     <li>
                         <FontAwesomeIcon icon={faComment} size='lg'/>
@@ -41,11 +44,16 @@ class CardBottomBanner extends React.Component<Props>{
         );
     }
 }
-const mapStateToProps = () => {
-    return {};
+const mapStateToProps = (state:ReduxState) => {
+    return {imagesMetaData: state.imagesMetaData};
 };
-export default connect(mapStateToProps,{handleLikePressActionCr: handleLikePressActionCr,})(CardBottomBanner);
+export default connect(mapStateToProps,{likePressActionCreator: likePressActionCreator,})(CardBottomBanner);
 // export default CardBottomBanner;
+type ReduxState = {
+    imagesMetaData: Array<ImgMetaData>;
+    loggedInProfile: string;
+    userData: any,
+};
 type ImgMetaData = {
     url: string;
     caption: string;
@@ -56,6 +64,7 @@ type ImgMetaData = {
     user: any;
 };
 type Props = {
-    imgMetaData: ImgMetaData;
-    handleLikePressActionCr: Function;
+    index: number;
+    imagesMetaData: Array<ImgMetaData>;
+    likePressActionCreator: Function;
 };
