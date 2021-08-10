@@ -214,6 +214,7 @@ html.color-theme-in-transition *::after {
   color: var(--secondaryClr130);
 }
 /* Groww custom CSS end */
+/* Global CSS rules */
 html{
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -222,8 +223,6 @@ html{
 body{
     margin: 0;
     padding: 0;
-    --shadow-spread-bottom: 10px;
-    --max-width-card: 230px;
 }
 ul{
   list-style: none;
@@ -265,11 +264,18 @@ a, a:hover, a:focus, a:active {
 a:hover {
     text-decoration: underline;
 }
+
+/* NewsFeed CSS rules */
 .header0133src{
     padding: 0.5rem;
     box-shadow: var(--boxShadow) 0px var(--shadow-spread-bottom) var(--shadow-spread-bottom) -10px;
     margin-bottom: var(--shadow-spread-bottom);
     display: flex;
+    /* Set the value of margin using React. 
+    It should be 0 top-down and equal to 
+    width of content (newsfeed or portfolio) */
+    /* margin: ; */
+    
     /* justify-content: space-around; */
 }
 .header0133src :not(:first-child){
@@ -285,8 +291,30 @@ a:hover {
 .theme0133header{
     border-radius: 5px;
 }
-.newsFeed0133root{
-    padding:10px;
+.mainPage0133src{
+    --max-profile-width-web: 800px;
+    max-width: var(--max-profile-width-web);
+    display: grid;
+    margin: 2% auto;
+    --grid-gap: 1.61803398875em;
+    grid-gap: var(--grid-gap); gap: var(--grid-gap);
+    grid-template-columns: 1.61803398875fr 1fr;
+    /* border: solid 1px black; */
+}
+.myProfilePreview0133src{
+    width: 100%;
+    height:450px;
+    background-color: var(--cardBackground);
+    border: solid 1px var(--border);
+    border-radius: 1em;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.newsFeed0133src{
+    padding:0 10px 10px 0;
+    --shadow-spread-bottom: 10px;
+    --max-width-card: 500px;
 }
 .card{
     --card-margin: 5px;
@@ -300,6 +328,9 @@ a:hover {
     background-color: var(--cardBackground);
     border-radius: 5px;
     box-shadow: var(--boxShadow) 0px 0px 0px 1px; 
+}
+.card:first-of-type{
+    margin-top: 0;
 }
 .CardTopBanner{
     align-self: flex-start;
@@ -337,6 +368,8 @@ a:hover {
 .image:hover{
     object-fit: cover;
     transform: scale(1.2);
+    width:var(--max-width-card);
+    height:var(--max-width-card);
     margin: calc(var(--card-margin)*3);
     margin-top: 0;
     /* https://getcssscan.com/css-box-shadow-examples #87 */
@@ -372,4 +405,57 @@ a:hover {
 }
 .footer0133src a:hover{
     text-decoration: none;
+}
+
+/* PROFILE PAGE CSS */
+.profile0133src{
+    --max-profile-width-web: 800px;
+    margin: auto 1em;
+}
+.userInfo0133profile {
+    max-width: var(--max-profile-width-web);
+    display: flex;
+    margin: 2% auto;
+    border-bottom: solid 1px var(--border);
+}
+.pfp0133userInfo > *{
+    /* Circular ProfilePicture (pfp) */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+.stats0133userInfo{
+    font-size: xx-small;
+    display: flex;
+    flex-wrap:wrap;
+    align-content: center;
+}
+.stats0133userInfo > li{
+    margin: 0.1% 10%;
+}
+.growwgramId0133stats {
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(0,255,4,1) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.stats0133userInfo :first-child, .stats0133userInfo :last-child{
+    flex-basis: 100%;
+}
+.portfolio0133profile{
+    --max-width-card: 250px;
+    max-width: var(--max-profile-width-web);
+    margin: 2% auto;
+    display: grid;
+    grid-gap: 1em; gap: 1em; /*same thing. key is updated in spec*/
+    grid-template-columns: repeat(3, 1fr); 
+    /* grid is creating as many 200 pixel columns as will fit into the container, then sharing whatever space is leftover between all of the columns — the maximum is 1fr (1fr distributes space evenly between tracks) */
+    /* grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); */
+    /* grid-auto-rows: auto; grid-auto-rows: minmax(100px, auto); */
+    justify-items: center;
+    align-items: center;
+}
+.portfolio0133profile > * {
+    /* border: solid 1px blueviolet; */
 }

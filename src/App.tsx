@@ -58,7 +58,6 @@ class App extends React.Component<Props, State> {
                     <Route path='/profile' exact component={ProfilePage}/>
                     <Nav/>
                 </BrowserRouter>
-                
             </div>
         )
     };

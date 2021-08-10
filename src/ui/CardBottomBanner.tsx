@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   faBookmark,
   faComment,
+  faShareSquare,
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -34,6 +35,9 @@ class CardBottomBanner extends React.Component<Props>{
                     </li>
                     <li>
                         <FontAwesomeIcon icon={faComment} size='lg'/>
+                    </li>
+                    <li className='push0133cardBottomBanner'>
+                        <FontAwesomeIcon icon={faShareSquare} size='lg'/>
                     </li>
                     <li className='push0133cardBottomBanner'>
                         <FontAwesomeIcon icon={faBookmark} size='lg'/>

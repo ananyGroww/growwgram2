@@ -13,7 +13,7 @@ export const imagesMetaDataReducer = (imagesMetaData:Array<ImgMetaData>=[], acti
 export const selectedUserImagesPortfolioReducer = (visitingUserImagesURLList:Array<string> = [], action:action) => {
     const {type, payload} = action;
     if(type==='USER_IMAGES_LIST'){
-        console.log(`selectedUserImagesPortfolioReducer/reducer`,payload.userImagesURLList)
+        // console.log(`selectedUserImagesPortfolioReducer/reducer`,payload.userImagesURLList)
         return [...payload.userImagesURLList];
     }
     return visitingUserImagesURLList;

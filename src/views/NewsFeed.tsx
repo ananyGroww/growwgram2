@@ -26,8 +26,13 @@ class NewsFeed extends React.Component<Props, ClassState>{
     render(){
         // console.log(`render/NewsFeed`,this.props);
         return(
-            <div className='newsFeed0133root'>
-                {this.renderCardsList()}
+            <div className='mainPage0133src'>
+                <div className='newsFeed0133src'>
+                    {this.renderCardsList()}
+                </div>
+                <div className='myProfilePreview0133src'>
+                    Right Side column
+                </div>
             </div>
         )
     }

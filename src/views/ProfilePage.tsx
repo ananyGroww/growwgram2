@@ -22,19 +22,20 @@ class ProfilePage extends React.Component<Props>{
         const { growwgramId, bio, followers, following, profilePicture, posts} = visitingUser;
         console.log(`visitingUserImagesURLList:render/ProfilePage`, visitingUserImagesURLList);
         return(
-            <div>
-                <div>
-                    <img className='image' src={profilePicture} alt='Profile'/>
+            <div className='profile0133src'>
+                <div className='userInfo0133profile'>
+                    <div className='pfp0133userInfo'>
+                        <img className='image' src={profilePicture} alt='Profile'/>
+                    </div>
+                    <ul className='stats0133userInfo'>
+                        <li className='growwgramId0133stats fs12'>{growwgramId}</li>
+                        <li>Followers {followers?followers:0}</li>
+                        <li>Following {following?following:0}</li>
+                        <li>Posts {posts}</li>
+                        <li>{bio}</li>
+                    </ul>
                 </div>
-                <ul>
-                    <li>{growwgramId}</li>
-                    <li>{posts}</li>
-                    <li>{followers}</li>
-                    <li>{following}</li>
-                    <li>{bio}</li>
-                    <li>{posts}</li>
-                </ul>
-                <div>
+                <div className='portfolio0133profile'>
                     {this.renderPortfolioImages()}
                 </div>
             </div>
@@ -42,7 +43,7 @@ class ProfilePage extends React.Component<Props>{
     };
 }
 const mapStateToProps = (state:ReduxState) => {
-    console.log(`mapStateToProps/ProfilePage`,state.visitingUserImagesURLList);
+    // console.log(`mapStateToProps/ProfilePage`,state.visitingUserImagesURLList);
     return {visitingUser: state.visitingUser, visitingUserImagesURLList: state.visitingUserImagesURLList,};
 }
 export default connect(mapStateToProps, {userImagesActionCreator:userImagesActionCreator})(ProfilePage);
