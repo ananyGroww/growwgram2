@@ -14,7 +14,6 @@ class CardTopBanner extends React.Component<Props>{
     gotoProfile = () => {
         const { imagesMetaData, index, visitSelectedUserActionCreator } = this.props;
         const { username } = imagesMetaData[index].user;
-        console.log(`gotoProfile/CardTopBanner`, imagesMetaData[index].user);
         visitSelectedUserActionCreator(index, username);
     }
     render(){

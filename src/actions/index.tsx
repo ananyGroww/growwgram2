@@ -1,15 +1,9 @@
 import axios from 'axios';
 
-// Action Creator
-// Q: How to define types of functions `getNewPage` & the `async function` 3 lines below?
-
-// define actions with []action
+// FEEDBACK: define actions with [functionname]action
 export const getNewPage = (itemsPerPage:number = 10) => {
-    // return an action
     return async function (dispatch:Function, getState:object){
-        // const response = await sendNetworkRequest(itemsPerPage);
-        const response1:any = await sendNetworkRequest(`/photos/random`, { query: 'party', count: itemsPerPage });
-        // console.log(`render/action`, response, response instanceof Array);
+        const response1:any = await sendNetworkRequest(`/photos/random`, { query: 'laser', count: itemsPerPage });
         let imgObjList = cleanedResponse(response1);
         dispatch({
                 type: 'GET_NEW_PAGE',
@@ -19,33 +13,14 @@ export const getNewPage = (itemsPerPage:number = 10) => {
         }); 
     }
 };
-export const getPage = (itemsPerPage:number = 10) => {
-    // return an action
+export const userImagesMetadataActionCreator = (username:string = '2renkov', pageno:Number = 1) => {
     return async function (dispatch:Function, getState:object){
-        // const response = await sendNetworkRequest(itemsPerPage);
-        const response1:any = await sendNetworkRequest(`/photos/random`, { query: 'party', count: itemsPerPage });
-        // console.log(`render/action`, response, response instanceof Array);
-        let imgObjList = cleanedResponse(response1);
+        const response1:any = await sendNetworkRequest(`/users/${username}/photos`, { username: username, page: pageno, per_page:10});
+        let userImagesMetaData:Array<any> = response1.data.map( (imgMetaData:any) => imgMetaData );
         dispatch({
-                type: 'GET_NEW_PAGE',
+                type: 'USER_IMAGES_METADATA',
                 payload:{
-                    imagesObjList: imgObjList,
-                }
-        }); 
-    }
-};
-
-export const userImagesActionCreator = (username:string = '2renkov') => {
-    // return an action
-    return async function (dispatch:Function, getState:object){
-        const response1:any = await sendNetworkRequest(`/users/${username}/photos`, { username: username,});
-        console.log( `userImagesActionCreator/action`, response1 );
-        let userImagesURLList:Array<string> = response1.data.map( (imgObj:any) => imgObj.urls.regular );
-        console.log( `After:userImagesActionCreator/action`, userImagesURLList );
-        dispatch({
-                type: 'USER_IMAGES_LIST',
-                payload:{
-                    userImagesURLList: userImagesURLList,
+                    userImagesMetaData: userImagesMetaData,
                 }
         }); 
     }
@@ -55,7 +30,6 @@ export const visitSelectedUserActionCreator = (index:number = 1, username:string
         // const response = await sendNetworkRequest(itemsPerPage);
         try{
             const response1:any = await sendNetworkRequest(`/users/${username}`, { username: username,});
-            // console.log(`visitSelectedUser/action`, response1);
             dispatch({
                     type: 'VISIT_SELECTED_USER',
                     payload:{
@@ -72,15 +46,8 @@ export const visitSelectedUserActionCreator = (index:number = 1, username:string
             });
         }
     }
-    // return {
-    //     type: 'SELCTED_USER',
-    //     payload:{
-    //     userData: response1,
-    //     },
-    // };
 };
 export const likePressActionCreator = (index:number = 0) => {
-    console.log(`likePressActionCreator/action.. handling Like press...`)
     return {
         type: 'CHANGE_LIKE_VALUE',
         payload : {
@@ -88,7 +55,6 @@ export const likePressActionCreator = (index:number = 0) => {
         }
     }
 }
-
 
 // THIS FUNCTION IS INCOMPLETE
 export const loggedInProfile = (userName:string = '2renkov') => {
@@ -100,23 +66,8 @@ export const loggedInProfile = (userName:string = '2renkov') => {
         },
     };
 };
-// export const getUserProfile = ( userName:string) => {
-//     return async function (dispatch:Function, getState:object){
-//         // const response = await sendNetworkRequest(itemsPerPage);
-//         const response1:any = await sendNetworkRequest(0, `/users/:username`, { username: userName });
-//         // console.log(`getUserProfile/action`, response, response instanceof Array);
-//         dispatch({
-//                 type: 'GET_USER_PROFILE',
-//                 payload:{
-//                     userData: response1,
-//                 }
-//         }); 
-//     }
-// }
-
 const cleanedResponse = (response:any):Array<ImgMetaData> => {
     let imagesObj:any = response.data;
-    console.log(`sendNetworkRequest/actionCreators `, imagesObj);
     let tempImgList:Array<ImgMetaData> = imagesObj.map( (imageObj:any) => {
         // let image:ImgMetaData = imageObj;
         let image:ImgMetaData = {
@@ -135,13 +86,10 @@ const cleanedResponse = (response:any):Array<ImgMetaData> => {
 }
 const sendNetworkRequest = async (URI:string, params:Object):Promise<any> => {
     // Q: How to change below any in `response:any` to particular type?
-    // A: You don't, for now. Groww does it though.
-
-    // Q: How do I add error handling? (Here, suppose net rqst fails. So this Promise should return `reject();`)
     let response:any = await axios.get(`https://api.unsplash.com${URI}`, {
         params: params,
         headers: {
-                Authorization: 'Client-ID B0lyINmsrENvvv75E_HItGpAp7vHXschObEogo542tY'
+                Authorization: 'Client-ID 5TN16pc1ZRFpinyndwixG65CXhFW0rcYutEP6l9jdIw'
             }
     });
     return response;

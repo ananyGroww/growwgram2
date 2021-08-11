@@ -24,10 +24,16 @@ class App extends React.Component<Props, State> {
         this.state = {
             darkMode: localStorage.getItem("DARK_MODE")==='light'? false: true,
         }
+        // this.state.darkMode? 
+        //     document.documentElement.setAttribute('data-theme', "dark"):
+        //     document.documentElement.removeAttribute('data-theme');
     }
     toggleDarkMode = () => {
         localStorage.setItem("DARK_MODE", this.state.darkMode?'dark':'light');
-        this.state.darkMode ? this.setState({darkMode: false}) : this.setState({darkMode: true})
+        this.state.darkMode ? this.setState({darkMode: false}) : this.setState({darkMode: true});
+        // this.state.darkMode? 
+        //     document.documentElement.setAttribute('data-theme', 'dark'):
+        //     document.documentElement.removeAttribute('data-theme');
     }
     currentTheme(){
         // https://www.pullrequest.com/blog/create-a-persisting-dark-mode-with-react/
@@ -39,6 +45,7 @@ class App extends React.Component<Props, State> {
             // Q: How to change `data-theme` property of html tag? (Here, I've just jerryrigged it to `src0133root` component)
             // document.documentElement.setAttribute('data-theme', 'dark');
             // document.documentElement.removeAttribute('data-theme');
+            // <div>
             <div className='src0133root' data-theme={this.currentTheme()}>
                 <nav>
                     <ul className='header0133src fs30'>

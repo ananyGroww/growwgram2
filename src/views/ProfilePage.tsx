@@ -2,25 +2,61 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { userImagesActionCreator } from '../actions';
+import {
+  faBookmark,
+  faComment,
+  faShareSquare,
+} from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class ProfilePage extends React.Component<Props>{
+import { userImagesMetadataActionCreator } from '../actions';
+import Caption from '../common/Card/Caption';
+import Likes from '../common/Card/Likes';
+
+class ProfilePage extends React.Component<Props, State>{
     componentDidMount(){
-        const { visitingUser, userImagesActionCreator, } = this.props;
-        userImagesActionCreator(visitingUser.username);
+        const { visitingUser, userImagesMetadataActionCreator} = this.props;
+        console.log(`componentDidMount/ProfilePage isn't being called on 1st time.`);
+        userImagesMetadataActionCreator(visitingUser.username, 1);
     }
-    renderPortfolioImages(){
-        const { visitingUserImagesURLList } = this.props;
+    renderPortfolioImagesWithDetails(){
+        const { visitingUserImagesMetadata } = this.props;
         let cards:Array<JSX.Element> = [];
-        for(let i = 0; i < visitingUserImagesURLList.length; i++) {
-            cards.push(<img className='image' key={visitingUserImagesURLList[i]} src={visitingUserImagesURLList[i]} alt={visitingUserImagesURLList[i]}/>);
+        for(let i = 0; i < visitingUserImagesMetadata.length; i++) {
+            const { liked_by_user, alt_description, id, likes, urls,  } = visitingUserImagesMetadata[i];
+            cards.push(
+                <div>
+                    <img
+                        className='image'
+                        key={id}
+                        src={urls.regular}
+                        alt={alt_description}
+                    />
+                    <div className='imageDetails0133portfolio'>
+                        <ul className='list0133CardBottomBanner fs12'>
+                            <li>
+                                <Likes noOfLikes={likes} isLiked={liked_by_user}/>
+                            </li>
+                            <li>
+                                <FontAwesomeIcon icon={faComment} size='lg'/>
+                            </li>
+                            <li className='push0133cardBottomBanner'>
+                                <FontAwesomeIcon icon={faShareSquare} size='lg'/>
+                            </li>
+                            <li className='push0133cardBottomBanner'>
+                                <FontAwesomeIcon icon={faBookmark} size='lg'/>
+                            </li>
+                        </ul>
+                        <Caption caption={alt_description}/>
+                    </div>
+                </div>
+            );
         }
         return cards;
     }
     render(){
-        const { visitingUser, visitingUserImagesURLList } = this.props;
+        const { visitingUser, } = this.props;
         const { growwgramId, bio, followers, following, profilePicture, posts} = visitingUser;
-        console.log(`visitingUserImagesURLList:render/ProfilePage`, visitingUserImagesURLList);
         return(
             <div className='profile0133src'>
                 <div className='userInfo0133profile'>
@@ -28,33 +64,46 @@ class ProfilePage extends React.Component<Props>{
                         <img className='image' src={profilePicture} alt='Profile'/>
                     </div>
                     <ul className='stats0133userInfo'>
-                        <li className='growwgramId0133stats fs12'>{growwgramId}</li>
-                        <li>Followers {followers?followers:0}</li>
-                        <li>Following {following?following:0}</li>
-                        <li>Posts {posts}</li>
-                        <li>{bio}</li>
+                        <li key={growwgramId} className='growwgramId0133stats fs12'>{growwgramId}</li>
+                        <li key={followers}>Followers {followers?followers:0}</li>
+                        <li key={following}>Following {following?following:0}</li>
+                        <li key={posts}>Posts {posts}</li>
+                        <li key={bio}>{bio}</li>
                     </ul>
                 </div>
+                
                 <div className='portfolio0133profile'>
-                    {this.renderPortfolioImages()}
+                    {this.renderPortfolioImagesWithDetails()}
                 </div>
             </div>
         )
     };
 }
 const mapStateToProps = (state:ReduxState) => {
-    // console.log(`mapStateToProps/ProfilePage`,state.visitingUserImagesURLList);
-    return {visitingUser: state.visitingUser, visitingUserImagesURLList: state.visitingUserImagesURLList,};
+    return {
+        visitingUser: state.visitingUser, 
+        visitingUserImagesMetadata:state.visitingUserImagesMetadata,
+        userImagesMetadataActionCreator:userImagesMetadataActionCreator,
+    };
 }
-export default connect(mapStateToProps, {userImagesActionCreator:userImagesActionCreator})(ProfilePage);
+export default connect(
+    mapStateToProps, 
+    {
+        userImagesMetadataActionCreator:userImagesMetadataActionCreator,
+    }
+)(ProfilePage);
 type ReduxState = {
     visitingUser: VisitingUser;
-    visitingUserImagesURLList: Array<string>;
+    visitingUserImagesMetadata: Array<any>;
 };
 type Props = {
     visitingUser: VisitingUser;
     userImagesActionCreator: Function;
-    visitingUserImagesURLList: Array<string>;
+    userImagesMetadataActionCreator: Function;
+    visitingUserImagesMetadata: Array<any>;
+};
+type State = {
+    portfolioPageNo:number;
 };
 type VisitingUser = {
     username: string;

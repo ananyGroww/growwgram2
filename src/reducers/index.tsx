@@ -3,33 +3,30 @@ import { combineReducers } from 'redux';
 export const imagesMetaDataReducer = (imagesMetaData:Array<ImgMetaData>=[], action:action) => {
     const { type, payload } = action;
     switch (type){
-        // Had to remove this one below coz: When coming from `/profile` back to `/`, the old data gets appended with the same new data, thus duplicates occur.
-        // case 'GET_NEW_PAGE': return [...imagesMetaData, ...action.payload.imagesObjList];
         case 'GET_NEW_PAGE': return [...imagesMetaData, ...payload.imagesObjList];
         case 'CHANGE_LIKE_VALUE': {console.log(`imagesMetaDataReducer/reducer... almost handled. Action:`, action); return changeLikeValue(payload.index, imagesMetaData);}
     }
     return imagesMetaData;
 };
-export const selectedUserImagesPortfolioReducer = (visitingUserImagesURLList:Array<string> = [], action:action) => {
+export const selectedUserImagesMetadataPortfolioReducer = (visitingUserImagesMetadata:Array<any> = [], action:action) => {
     const {type, payload} = action;
-    if(type==='USER_IMAGES_LIST'){
-        // console.log(`selectedUserImagesPortfolioReducer/reducer`,payload.userImagesURLList)
-        return [...payload.userImagesURLList];
+    if(type==='USER_IMAGES_METADATA'){
+        return payload.userImagesMetaData;
     }
-    return visitingUserImagesURLList;
+    return visitingUserImagesMetadata;
 }
 // Q: How to implement userData type in 1st parameter of userDataReducer?
+// A: Do it here and make a  mess or add ?. in the type object to bypass this
 export const visitSelectedUserReducer = (visitingUser:visitingUser = {}, action: action) => {
-    // make a constant file const GET_..., and import it
+    // FEEDBACK: make a constant file const GET_..., and import it
     if(action.type === `VISIT_SELECTED_USER`){
-        console.log(`userDataReducer/reducers`, action.payload.userData);
-        const { username, instagram_username, bio, followers, following, profile_image, total_photos } = action.payload.userData.data;
+        const { username, instagram_username, bio, followers_count, following_count, profile_image, total_photos } = action.payload.userData.data;
         let userDataTemp:visitingUser = {
             username: username,
             growwgramId: instagram_username,
             bio: bio,
-            followers: followers,
-            following: following,
+            followers: followers_count,
+            following: following_count,
             profilePicture: profile_image.large,
             posts: total_photos,
         }
@@ -49,20 +46,27 @@ export default combineReducers({
     imagesMetaData: imagesMetaDataReducer,
     loggedInProfile: currentUserReducer,
     visitingUser: visitSelectedUserReducer,
-    visitingUserImagesURLList: selectedUserImagesPortfolioReducer,
+    visitingUserImagesMetadata: selectedUserImagesMetadataPortfolioReducer,
 });
+
 const changeLikeValue = (index:number, imagesMetaData:Array<ImgMetaData>) => {
     console.log(`Is changeLikeValue even running?`);
     let tempimagesMetaData:Array<ImgMetaData> = [];
     for( let i = 0; i < imagesMetaData.length ; i++ ){
         let tempimgMetaData:ImgMetaData = imagesMetaData[i];
         if(i===index){
-            // console.log(`helperLikePress/reducer... saved`);
+            tempimgMetaData.likes = updatedNoOfLikes(tempimgMetaData);
             tempimgMetaData.likedByUser = !tempimgMetaData.likedByUser;
         }
         tempimagesMetaData.push(imagesMetaData[i]);
     }
     return tempimagesMetaData;
+}
+const updatedNoOfLikes = (imgMetaData:ImgMetaData):number => {
+    if(imgMetaData.likedByUser===true){
+        return imgMetaData.likes-1;
+    }
+    return imgMetaData.likes+1;
 }
 type GET_NEW_PAGE = {
     type: string;
@@ -92,7 +96,13 @@ type USER_IMAGES_LIST = {
         userImagesURLList: Array<string>;
     }
 };
-type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | CHANGE_LIKE_VALUE | USER_IMAGES_LIST;
+type USER_IMAGES_METADATA = {
+    type: string;
+    payload: {
+        userImagesURLList: Array<any>;
+    }
+};
+type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | CHANGE_LIKE_VALUE | USER_IMAGES_LIST | USER_IMAGES_METADATA;
 type ImgMetaData = {
     url: string;
     caption: string;

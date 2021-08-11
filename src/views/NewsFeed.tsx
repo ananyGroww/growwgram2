@@ -13,9 +13,13 @@ class NewsFeed extends React.Component<Props, ClassState>{
         if(imagesMetaData.length === 0)
             getNewPage();
     }
+
+    loadMorePosts = () => {
+        console.log(`Was this called? loadMorePosts/NewsFeed`);
+        this.props.getNewPage();
+    }
     renderCardsList():Array<JSX.Element>{
         const { imagesMetaData } = this.props;
-        console.log(`renderCardsHelper/NewsFeed`,imagesMetaData);
         let cards:Array<JSX.Element> = [];
         for(let i = 0; i < imagesMetaData.length; i++) {
             cards.push(<Card key={imagesMetaData[i].id} index={i}/>)
@@ -30,6 +34,20 @@ class NewsFeed extends React.Component<Props, ClassState>{
                 <div className='newsFeed0133src'>
                     {this.renderCardsList()}
                 </div>
+                {/* <div className='newsFeed0133src'>
+                    <InfiniteScroll 
+                        dataLength={10} 
+                        next={this.loadMorePosts} 
+                        hasMore={true} 
+                        loader={
+                            <div style={{fontSize:"xx-small"}}>
+                                Please wait while GrowwGram to load more images.
+                            </div>
+                        }
+                    >
+                        {this.renderCardsList()}
+                    </InfiniteScroll>
+                </div> */}
                 <div className='myProfilePreview0133src'>
                     Right Side column
                 </div>
@@ -38,7 +56,6 @@ class NewsFeed extends React.Component<Props, ClassState>{
     }
 }
 const mapStateToProps = (state:ReduxState) => {
-    console.log(`mapStateToProps/NewsFeed.tsx`, state);
     return {imagesMetaData: state.imagesMetaData};
 }
 export default connect(mapStateToProps, { getNewPage: getNewPage, })(NewsFeed);

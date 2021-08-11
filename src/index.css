@@ -214,6 +214,7 @@ html.color-theme-in-transition *::after {
   color: var(--secondaryClr130);
 }
 /* Groww custom CSS end */
+
 /* Global CSS rules */
 html{
     font-family: 'Roboto', sans-serif;
@@ -253,10 +254,6 @@ ul{
 .button:active {
     transform: scale(0.99);
 }
-.src0133root{
-    background-color: var(--primaryBg);
-    color: var(--text);
-}
 a, a:hover, a:focus, a:active {
     text-decoration: none;
     color: inherit;
@@ -264,8 +261,14 @@ a, a:hover, a:focus, a:active {
 a:hover {
     text-decoration: underline;
 }
-
+/* Global CSS rules end */
 /* NewsFeed CSS rules */
+.src0133root{
+  background-color: var(--primaryBg);
+  color: var(--text);
+  --shadow-spread-bottom: 10px;
+}
+
 .header0133src{
     padding: 0.5rem;
     box-shadow: var(--boxShadow) 0px var(--shadow-spread-bottom) var(--shadow-spread-bottom) -10px;
@@ -291,6 +294,7 @@ a:hover {
 .theme0133header{
     border-radius: 5px;
 }
+
 .mainPage0133src{
     --max-profile-width-web: 800px;
     max-width: var(--max-profile-width-web);
@@ -313,7 +317,6 @@ a:hover {
 }
 .newsFeed0133src{
     padding:0 10px 10px 0;
-    --shadow-spread-bottom: 10px;
     --max-width-card: 500px;
 }
 .card{
@@ -410,6 +413,7 @@ a:hover {
 /* PROFILE PAGE CSS */
 .profile0133src{
     --max-profile-width-web: 800px;
+    --max-width-card: 100px;
     margin: auto 1em;
 }
 .userInfo0133profile {
@@ -421,8 +425,8 @@ a:hover {
 .pfp0133userInfo > *{
     /* Circular ProfilePicture (pfp) */
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: var(--max-width-card);
+    height: var(--max-width-card);
 }
 .stats0133userInfo{
     font-size: xx-small;
@@ -454,8 +458,9 @@ a:hover {
     /* grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); */
     /* grid-auto-rows: auto; grid-auto-rows: minmax(100px, auto); */
     justify-items: center;
-    align-items: center;
+    align-items:flex-start;
 }
-.portfolio0133profile > * {
-    /* border: solid 1px blueviolet; */
+.imageDetails0133portfolio , .imageDetails0133portfolio li {
+    padding: 2px 2px 0 2px;
+    /* background-color: #00D09C; */
 }
