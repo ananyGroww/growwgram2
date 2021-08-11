@@ -1,42 +1,20 @@
 import React from 'react';
 
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
 
 import { getNewPage } from '../actions';
 import Card from '../ui/Card';
+import RightSideColumn from './RightSideColumn';
 
-class NewsFeed extends React.Component<Props, ClassState>{
-    componentDidMount(){
-        // Destructuring
-        const {getNewPage, imagesMetaData} = this.props;
-
-        if(imagesMetaData.length === 0)
-            getNewPage();
-    }
-
-    loadMorePosts = () => {
-        console.log(`Was this called? loadMorePosts/NewsFeed`);
-        this.props.getNewPage();
-    }
-    renderCardsList():Array<JSX.Element>{
-        const { imagesMetaData } = this.props;
-        let cards:Array<JSX.Element> = [];
-        for(let i = 0; i < imagesMetaData.length; i++) {
-            cards.push(<Card key={imagesMetaData[i].id} index={i}/>)
-        }
-        return cards;
-        // return this.props.imagesMetaData.map( (image:ImgMetaData) => <Card key={image.id} imgMetaData={image}/> );
-    }
+class NewsFeed extends React.Component<Props, State>{
     render(){
-        // console.log(`render/NewsFeed`,this.props);
+        const { imagesMetaData } = this.props;
         return(
             <div className='mainPage0133src'>
-                <div className='newsFeed0133src'>
-                    {this.renderCardsList()}
-                </div>
-                {/* <div className='newsFeed0133src'>
+                <div className='newsFeed0133mainPage'>
                     <InfiniteScroll 
-                        dataLength={10} 
+                        dataLength={imagesMetaData.length} 
                         next={this.loadMorePosts} 
                         hasMore={true} 
                         loader={
@@ -47,13 +25,29 @@ class NewsFeed extends React.Component<Props, ClassState>{
                     >
                         {this.renderCardsList()}
                     </InfiniteScroll>
-                </div> */}
-                <div className='myProfilePreview0133src'>
-                    Right Side column
                 </div>
+                <RightSideColumn/>
             </div>
         )
     }
+    renderCardsList():Array<JSX.Element>{
+        const { imagesMetaData } = this.props;
+        let cards:Array<JSX.Element> = [];
+        for(let i = 0; i < imagesMetaData.length; i++) {
+            cards.push(<Card key={imagesMetaData[i].id} index={i} imgMetaData={imagesMetaData[i]}/>)
+        }
+        return cards;
+    }
+    componentDidMount(){
+        const {getNewPage, imagesMetaData} = this.props;
+
+        if(imagesMetaData.length === 0)
+            getNewPage();
+    }
+    loadMorePosts = () => {
+        console.log(`loadMorePosts/NewsFeed: Was 'loadMorePosts()' called?`);
+        this.props.getNewPage();
+    };
 }
 const mapStateToProps = (state:ReduxState) => {
     return {imagesMetaData: state.imagesMetaData};
@@ -78,6 +72,6 @@ type ReduxState = {
     loggedInProfile: string;
     userData: any,
 };
-type ClassState = {
+type State = {
     imagesList: Array<ImgMetaData>;
 }

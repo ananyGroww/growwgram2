@@ -1,24 +1,53 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCloudMoonRain,
+  faSun,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default class Nav extends React.Component{
+export default class Nav extends React.Component<Props, State>{
+    // The button for dark mode is not changing coz the
+    // update happening on localStorage. To change buttons
+    // create a state prop and update it too.
     render(){
         return(
-            <div className='footer0133src'>
-                <Link to='/'>
-                    News feed
-                    {/* <button className='newsFeed0133footer button'>
-                        News feed
-                    </button> */}
-                </Link>
-                <Link to='/profile'>
-                    My Profile
-                    {/* <button className='profile0133footer button'>
-                        My Profile
-                    </button> */}
-                </Link>
-            </div>
+            <nav className='nav0133src'>
+                <ul className='header0133nav fs30'>
+                    <li className='growwgram0133header'>
+                        Growwgram
+                    </li>
+                    <li className='theme0133header push0133header' onClick={this.toggleDarkMode}>
+                            {this.currentTheme() === 'light'? <FontAwesomeIcon icon={faSun} size='lg'/> : <FontAwesomeIcon icon={faCloudMoonRain} size='lg'/> }
+                    </li>
+                    <li className='myProfile0133header'>
+                            <FontAwesomeIcon icon={faUser} size='lg'/>
+                    </li>
+                </ul>
+            </nav>
         );
-    }
-}
+    };
+    toggleDarkMode = () => {
+        localStorage.getItem("DARK_MODE")==='light'?
+            this.setDarkMode():
+            this.setLightMode();
+    };
+    setLightMode = () => {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem("DARK_MODE",'light');
+    };
+    setDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem("DARK_MODE",'dark');
+    };
+    currentTheme(){
+        return localStorage.getItem("DARK_MODE");
+    };
+    constructor(props:Props){
+        super(props);
+        localStorage.setItem("DARK_MODE",'light');
+    };
+};
+type Props = {};
+type State = {};

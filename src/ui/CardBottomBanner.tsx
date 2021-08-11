@@ -10,40 +10,40 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { likePressActionCreator } from '../actions';
-import Caption from '../common/Card/Caption';
 import Likes from '../common/Card/Likes';
 
 class CardBottomBanner extends React.Component<Props>{
     // https://reactjs.org/docs/faq-functions.html#class-properties-stage-3-proposal
     handleLike = () => {
-        console.log(`handleLike/CardBottomBanner... pressed like`);
-        const { likePressActionCreator, index } = this.props;
-        likePressActionCreator(index);
+        console.log(`handleLike/CardBottomBanner... pressed like, saving on cloud now...`);
+        const { likePressActionCreator, imgMetaData } = this.props;
+        likePressActionCreator(imgMetaData.id);
+        
     }
     render(){
-        
-        const {imagesMetaData, index} = this.props;
-        const {likes, likedByUser, caption} = imagesMetaData[index];
-        // const {handleLikePressActionCr} = this.props.handleLikePressActionCr;
+        const { imgMetaData } = this.props;
+        const { likes, likedByUser, caption } =imgMetaData;
         
         return(
-            <div>
-                <ul className='list0133CardBottomBanner fs12'>
-                    <li onClick={this.handleLike}>
-                    {/* <li> */}
+            <div className='CardBottomBanner fs12'>
+                <ul className='list0133CardBottomBanner'>
+                    <li className='like' onClick={this.handleLike}>
                         <Likes noOfLikes={likes} isLiked={likedByUser}/>
                     </li>
                     <li>
                         <FontAwesomeIcon icon={faComment} size='lg'/>
                     </li>
-                    <li className='push0133cardBottomBanner'>
+                    <li>
                         <FontAwesomeIcon icon={faShareSquare} size='lg'/>
                     </li>
-                    <li className='push0133cardBottomBanner'>
+                    <li>
                         <FontAwesomeIcon icon={faBookmark} size='lg'/>
                     </li>
                 </ul>
-                <Caption caption={caption}/>
+                <div className='caption0133CardBottomBanner'>
+                    {caption}
+                </div>
+                {/* <Caption caption={caption}/> */}
             </div>
         );
     }
@@ -68,7 +68,6 @@ type ImgMetaData = {
     user: any;
 };
 type Props = {
-    index: number;
-    imagesMetaData: Array<ImgMetaData>;
     likePressActionCreator: Function;
+    imgMetaData: ImgMetaData;
 };

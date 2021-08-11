@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 
 class CardPrimaryPicture extends React.Component<Props>{
     render(){
-        const {imagesMetaData, index} = this.props;
+        const { imgMetaData } = this.props;
         return(
             <div>
-                <img className='image' src={imagesMetaData[index].url} alt={imagesMetaData[index].caption}/>
+                {/* <img className='image' src={imagesMetaData[index].url} alt={imagesMetaData[index].caption}/> */}
+                <img className='image' src={imgMetaData.url} alt={imgMetaData.caption}/>
             </div>
         );
     }
@@ -25,8 +26,7 @@ type ImgMetaData = {
     location: string;
 }
 type Props = {
-    index: number;
-    imagesMetaData: Array<ImgMetaData>;
+    imgMetaData: ImgMetaData;
 };
 type ReduxState = {
     imagesMetaData: Array<ImgMetaData>;

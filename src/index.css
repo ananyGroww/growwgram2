@@ -6,7 +6,7 @@ html.color-theme-in-transition *::after {
   transition: all 300ms !important;
   transition-delay: 0 !important;
 }
-.src0133root{
+html{
   /* global colors */
   --primaryClr: #00D09C;
   --primaryClr60: #66E3C4;
@@ -49,7 +49,7 @@ html.color-theme-in-transition *::after {
   --constantSecondaryClr10: #F6F6F7;
   --cardBackground: #FFF;
 }
-.src0133root[data-theme="dark"] {
+html[data-theme="dark"] {
   /* global colors */
   --primaryClr: #0ABB92;
   --primaryClr60: #0B5E49;
@@ -262,144 +262,140 @@ a:hover {
     text-decoration: underline;
 }
 /* Global CSS rules end */
+
 /* NewsFeed CSS rules */
+
 .src0133root{
   background-color: var(--primaryBg);
   color: var(--text);
   --shadow-spread-bottom: 10px;
+  --max-profile-width-web: 800px;
+  --nav-height: 60px; /* manually computed */
 }
 
-.header0133src{
-    padding: 0.5rem;
+.nav0133src{
+    --nav-padding: 10px;
+    color: var(--primaryClr);
+    padding: var(--nav-padding) 0 var(--nav-padding) 0;
     box-shadow: var(--boxShadow) 0px var(--shadow-spread-bottom) var(--shadow-spread-bottom) -10px;
-    margin-bottom: var(--shadow-spread-bottom);
-    display: flex;
-    /* Set the value of margin using React. 
-    It should be 0 top-down and equal to 
-    width of content (newsfeed or portfolio) */
-    /* margin: ; */
-    
-    /* justify-content: space-around; */
+    /* https://www.w3schools.com/howto/howto_js_navbar_sticky.asp */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: var(--primaryBg);
 }
-.header0133src :not(:first-child){
-    padding: 0 20px;
-    /* background-color: #00D09C; */
+.header0133nav{
+    display: flex;
+    max-width: var(--max-profile-width-web);
+    margin: 0 auto;
 }
 .growwgram0133header{
-    color: var(--primaryClr);
+    font-family: 'Tangerine', cursive;
+    font-size: xx-large;
+}
+.header0133nav :not(:first-child){ 
+    padding: 0 0 0 var(--nav-padding);
+    cursor: pointer;
 }
 .push0133header {
     margin-left: auto;
 }
-.theme0133header{
-    border-radius: 5px;
-}
 
 .mainPage0133src{
-    --max-profile-width-web: 800px;
+    --nav-height: 60px; /* manually computed */
+    --grid-gap: 1.61803398875em;
+    --margin-between-cards: var(--grid-gap);
+    --border-radius: 10px;
     max-width: var(--max-profile-width-web);
     display: grid;
-    margin: 2% auto;
-    --grid-gap: 1.61803398875em;
+    margin: 0 auto;
     grid-gap: var(--grid-gap); gap: var(--grid-gap);
     grid-template-columns: 1.61803398875fr 1fr;
-    /* border: solid 1px black; */
+    padding-top: calc(var(--nav-height) + var(--margin-between-cards));
 }
-.myProfilePreview0133src{
+.rightColumn0133mainPage{
     width: 100%;
     height:450px;
+
     background-color: var(--cardBackground);
+
     border: solid 1px var(--border);
-    border-radius: 1em;
+    border-radius: var(--border-radius);
+
     display:flex;
     justify-content:center;
     align-items:center;
 }
-.newsFeed0133src{
-    padding:0 10px 10px 0;
+.newsFeed0133mainPage{
     --max-width-card: 500px;
 }
+
 .card{
     --card-margin: 5px;
-    margin: var(--card-margin) auto;
+    --instagram-padding: 16px;
+    margin: var(--margin-between-cards) auto;
     max-width: var(--max-width-card);
+
     display: flex;
     flex-direction: column;
-    background-color: var(--secondaryBg);
     align-items: center;
+
     border: 1px solid var(--border);
+    border-radius: var(--border-radius);
     background-color: var(--cardBackground);
-    border-radius: 5px;
     box-shadow: var(--boxShadow) 0px 0px 0px 1px; 
 }
 .card:first-of-type{
     margin-top: 0;
 }
+
 .CardTopBanner{
     align-self: flex-start;
-    margin: 0 var(--card-margin);
+    padding: var(--instagram-padding);
+
     display: flex;
+
     font-size: xx-small;
+    border: soild 1px var(--border);
 }
 .pfp0133CardTopBanner{
-    margin: auto;
-    margin-right: 10px;
-    font-size: xx-large;
-    padding: 1px;
+    font-size: xx-large; /* sytling the favicon */
+    padding-right: var(--instagram-padding);
 }
 .growwId0133CardTopBanner{
     border-bottom: 1px solid var(--border);
 }
+
 .image{
-    /* https://stackoverflow.com/a/38926886 */
     /* https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit */
-    object-fit: cover;
-    width:var(--max-width-card);
-    height:var(--max-width-card);
-    margin: calc(var(--card-margin)*3);
-    margin-top: 0;
-    transition: transform 0.4s;
-    /* https://getcssscan.com/css-box-shadow-examples #87 */
-    /* box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color]; */
-    box-shadow: var(--boxShadow) 0px 2px 1px, 
-                var(--boxShadow) 0px 4px 2px, 
-                var(--boxShadow) 0px 8px 4px,
-                var(--boxShadow) 0px 16px 8px, 
-                var(--boxShadow) 0px 32px 16px;
+    object-fit: contain;
+    max-width: var(--max-width-card);
+    max-height: var(--max-width-card);
 }
-/* https://www.w3schools.com/howto/howto_css_zoom_hover.asp */
-.image:hover{
-    object-fit: cover;
-    transform: scale(1.2);
-    width:var(--max-width-card);
-    height:var(--max-width-card);
-    margin: calc(var(--card-margin)*3);
-    margin-top: 0;
-    /* https://getcssscan.com/css-box-shadow-examples #87 */
-    /* box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color]; */
-    box-shadow: var(--boxShadow) 0px 2px 1px, 
-                var(--boxShadow) 0px 4px 2px, 
-                var(--boxShadow) 0px 8px 4px,
-                var(--boxShadow) 0px 16px 8px, 
-                var(--boxShadow) 0px 32px 16px;
+
+.like{
+    cursor: pointer;
+}
+
+.CardBottomBanner{
+    align-self: stretch;
+    padding: var(--instagram-padding);
+
+    display: flex;
+    flex-direction: column;
 }
 .list0133CardBottomBanner{
-    padding-bottom: 2px;
     display: flex;
-    width: var(--max-width-card);
-    /* justify-content: space-evenly; */
 }
-.list0133CardBottomBanner > :not(:last-child){
-    margin: 0 var(--card-margin);
+.list0133CardBottomBanner > * {
+    padding-right: var(--instagram-padding);
 }
-.push0133cardBottomBanner {
+.list0133CardBottomBanner > li:last-child{
+    padding-right: 0; /* reset padding aquired from above rule */
     margin-left: auto;
-    margin-right: var(--card-margin);
 }
-.caption0133 {
-    margin: 0 var(--card-margin) 2px var(--card-margin) ;
-    font-size: xx-small;
-}
+
 .footer0133src{
     display: flex;
     justify-content: space-around;
@@ -415,6 +411,7 @@ a:hover {
     --max-profile-width-web: 800px;
     --max-width-card: 100px;
     margin: auto 1em;
+    padding-top: calc(var(--nav-height) + 50px);
 }
 .userInfo0133profile {
     max-width: var(--max-profile-width-web);

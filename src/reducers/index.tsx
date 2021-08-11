@@ -4,7 +4,7 @@ export const imagesMetaDataReducer = (imagesMetaData:Array<ImgMetaData>=[], acti
     const { type, payload } = action;
     switch (type){
         case 'GET_NEW_PAGE': return [...imagesMetaData, ...payload.imagesObjList];
-        case 'CHANGE_LIKE_VALUE': {console.log(`imagesMetaDataReducer/reducer... almost handled. Action:`, action); return changeLikeValue(payload.index, imagesMetaData);}
+        case 'LIKE_THE_PHOTO': {console.log(`imagesMetaDataReducer/reducer... almost handled. Action:`, action); return changeLikeValue(imagesMetaData, action.payload);}
     }
     return imagesMetaData;
 };
@@ -36,7 +36,7 @@ export const visitSelectedUserReducer = (visitingUser:visitingUser = {}, action:
 };
 
 // Function currently not in use
-export const currentUserReducer = (username:string = '2renkov', action:action) => {
+export const currentUserReducer = (username:any = '2renkov', action:action) => {
     if( action.type === 'LOGGED_IN_PROFILE' ){
         return action.payload.userName;
     }
@@ -49,25 +49,31 @@ export default combineReducers({
     visitingUserImagesMetadata: selectedUserImagesMetadataPortfolioReducer,
 });
 
-const changeLikeValue = (index:number, imagesMetaData:Array<ImgMetaData>) => {
+const changeLikeValue = (imagesMetaData:Array<ImgMetaData>, imgMetaDataXL:any) => {
     console.log(`Is changeLikeValue even running?`);
+    // console.log(`changeLikeValue/reducer`,imgMetaDataXL);
     let tempimagesMetaData:Array<ImgMetaData> = [];
     for( let i = 0; i < imagesMetaData.length ; i++ ){
-        let tempimgMetaData:ImgMetaData = imagesMetaData[i];
-        if(i===index){
-            tempimgMetaData.likes = updatedNoOfLikes(tempimgMetaData);
-            tempimgMetaData.likedByUser = !tempimgMetaData.likedByUser;
+        // let tempimgMetaData:ImgMetaData = imagesMetaData[i];
+        if( imagesMetaData[i].id === imgMetaDataXL.photo.id ){
+            let tempimgMetaData:ImgMetaData = imagesMetaData[i];
+            tempimgMetaData.likes = imgMetaDataXL.photos.likes;
+            tempimgMetaData.likedByUser = imgMetaDataXL.photos.liked_by_user;
+            tempimagesMetaData.push(tempimgMetaData);
         }
-        tempimagesMetaData.push(imagesMetaData[i]);
+        else{
+            tempimagesMetaData.push(imagesMetaData[i]);
+        }
+        
     }
     return tempimagesMetaData;
 }
-const updatedNoOfLikes = (imgMetaData:ImgMetaData):number => {
-    if(imgMetaData.likedByUser===true){
-        return imgMetaData.likes-1;
-    }
-    return imgMetaData.likes+1;
-}
+// const updatedNoOfLikes = (imgMetaData:ImgMetaData):number => {
+//     if(imgMetaData.likedByUser===true){
+//         return imgMetaData.likes-1;
+//     }
+//     return imgMetaData.likes+1;
+// }
 type GET_NEW_PAGE = {
     type: string;
     payload:{
@@ -77,7 +83,7 @@ type GET_NEW_PAGE = {
 type LOGGED_IN_PROFILE = {
     type: string;
     payload: {
-        userName: string,
+        username: any,
     };
 };
 type USER_DATA = {

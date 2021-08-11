@@ -7,63 +7,20 @@ import {
   Route,
 } from 'react-router-dom';
 
-import { faIdBadge } from '@fortawesome/free-regular-svg-icons';
-import {
-  faCloudMoonRain,
-  faSun,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import Footer from './views/Footer';
 import Nav from './views/Nav';
 import NewsFeed from './views/NewsFeed';
 import ProfilePage from './views/ProfilePage';
 
 class App extends React.Component<Props, State> {
-    constructor(props:Props){
-        super(props);
-        this.state = {
-            darkMode: localStorage.getItem("DARK_MODE")==='light'? false: true,
-        }
-        // this.state.darkMode? 
-        //     document.documentElement.setAttribute('data-theme', "dark"):
-        //     document.documentElement.removeAttribute('data-theme');
-    }
-    toggleDarkMode = () => {
-        localStorage.setItem("DARK_MODE", this.state.darkMode?'dark':'light');
-        this.state.darkMode ? this.setState({darkMode: false}) : this.setState({darkMode: true});
-        // this.state.darkMode? 
-        //     document.documentElement.setAttribute('data-theme', 'dark'):
-        //     document.documentElement.removeAttribute('data-theme');
-    }
-    currentTheme(){
-        // https://www.pullrequest.com/blog/create-a-persisting-dark-mode-with-react/
-        localStorage.setItem("DARK_MODE", this.state.darkMode?'dark':'light');
-        return this.state.darkMode? 'dark' : 'light';
-    }
     render(){
         return(
-            // Q: How to change `data-theme` property of html tag? (Here, I've just jerryrigged it to `src0133root` component)
-            // document.documentElement.setAttribute('data-theme', 'dark');
-            // document.documentElement.removeAttribute('data-theme');
-            // <div>
-            <div className='src0133root' data-theme={this.currentTheme()}>
-                <nav>
-                    <ul className='header0133src fs30'>
-                        <li className='growwgram0133header'>
-                            Growwgram
-                        </li>
-                        <li className='theme0133header push0133header' onClick={this.toggleDarkMode}>
-                                {this.currentTheme() === 'light'? <FontAwesomeIcon icon={faSun} size='lg'/> : <FontAwesomeIcon icon={faCloudMoonRain} size='lg'/> }
-                        </li>
-                        <li className='myProfile0133header'>
-                                <FontAwesomeIcon icon={faIdBadge} size='lg'/>
-                        </li>
-                    </ul>
-                </nav>
+            <div className='src0133root'>
+                <Nav/>
                 <BrowserRouter>
                     <Route path='/' exact component={NewsFeed}/>
                     <Route path='/profile' exact component={ProfilePage}/>
-                    <Nav/>
+                    <Footer/>
                 </BrowserRouter>
             </div>
         )

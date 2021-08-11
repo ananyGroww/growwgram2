@@ -6,18 +6,14 @@ import { Link } from 'react-router-dom';
 import { faGrimace } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { visitSelectedUserActionCreator } from '../actions';
-import LocationOfPoster from '../common/Card/LocationOfPoster';
-import NameOfPoster from '../common/Card/NameOfPoster';
+import {
+  userImagesMetadataActionCreator,
+  visitSelectedUserActionCreator,
+} from '../actions';
 
 class CardTopBanner extends React.Component<Props>{
-    gotoProfile = () => {
-        const { imagesMetaData, index, visitSelectedUserActionCreator } = this.props;
-        const { username } = imagesMetaData[index].user;
-        visitSelectedUserActionCreator(index, username);
-    }
     render(){
-        const { imagesMetaData, index } = this.props;
+        const { imgMetaData } = this.props;
         return(
             <div className='CardTopBanner fs12'>
                 <FontAwesomeIcon className='pfp0133CardTopBanner' icon={faGrimace} size='lg'/>
@@ -26,30 +22,41 @@ class CardTopBanner extends React.Component<Props>{
                 <ul>
                     <li>
                         <Link to='/profile'>
-                            {/* Q: How to make below onClick work in <NameOfPoster/> so that I can remove this redundant <div/>? */}
-                            <div onClick={this.gotoProfile}>
-                                <NameOfPoster growwId={imagesMetaData[index].user.instagram_username}/>
+                            {/* Q: How to make below onClick work in <NameOfPoster/> so that 
+                                    I can remove this redundant <div/>? */}
+                            <div onClick={this.gotoProfile} className='growwId0133CardTopBanner'>
+                                {imgMetaData.user.username}
                             </div>
                         </Link>
                     </li>
                     <li>
-                        <LocationOfPoster location={imagesMetaData[index].location}/>
+                        {imgMetaData.location}
                     </li>
                 </ul>
             </div>
         );
-    }
+    };
+    // THIS IS BROKEN IDK WHY
+    gotoProfile = () => {
+        const { username } = this.props.imgMetaData.user;
+        console.log(`gotProfile/CardTopBanner is called.`);
+        visitSelectedUserActionCreator(username);
+        userImagesMetadataActionCreator(username);
+    };
 }
 const mapStateToProps = (state:ReduxState) => {
     return {imagesMetaData: state.imagesMetaData};
 }
-export default connect(mapStateToProps, { visitSelectedUserActionCreator: visitSelectedUserActionCreator, })(CardTopBanner);
-// Q: Don't we have to include here what we have imported into props using then mapStateToProps function?
+export default connect(mapStateToProps, { 
+    visitSelectedUserActionCreator: visitSelectedUserActionCreator, 
+    userImagesMetadataActionCreator: userImagesMetadataActionCreator,
+})(CardTopBanner);
+// Q: Do we have to include here what we have imported into props using the `mapStateToProps` function?
 // A: Yes, we do!
 type Props = {
-    index: number;
     visitSelectedUserActionCreator: Function;
-    imagesMetaData: Array<ImgMetaData>;
+    userImagesMetadataActionCreator: Function;
+    imgMetaData: ImgMetaData;
 };
 type ImgMetaData = {
     url: string;
