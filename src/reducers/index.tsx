@@ -8,6 +8,7 @@ export const imagesMetaDataReducer = (imagesMetaData:Array<ImgMetaData>=[], acti
     }
     return imagesMetaData;
 };
+
 export const selectedUserImagesMetadataPortfolioReducer = (visitingUserImagesMetadata:Array<any> = [], action:action) => {
     const {type, payload} = action;
     if(type==='USER_IMAGES_METADATA'){
@@ -35,19 +36,34 @@ export const visitSelectedUserReducer = (visitingUser:visitingUser = {}, action:
     return visitingUser;
 };
 
-// Function currently not in use
-export const currentUserReducer = (username:any = '2renkov', action:action) => {
+export const myProfileReducer = (myProfileMetaData:any = '2renkov', action:action) => {
     if( action.type === 'LOGGED_IN_PROFILE' ){
-        return action.payload.userName;
+        return action.payload.myProfileMetaData;
     }
-    return username;
+    return myProfileMetaData;
 };
+export const myPortfolioReducer = ( myPortfolio:Array<any>=[], action:action ) => {
+    const { type, payload } = action;
+    if( type === 'LOGGED_IN_PROFILE_PORTFOLIO'){
+        return [...myPortfolio, ...payload.myProfileImagesMetaData];
+    }
+    else if ( type === 'CLEAR_MY_PORTFOLIO' ){
+        return [];
+    }
+    return myPortfolio;
+};
+
+
 export default combineReducers({
     imagesMetaData: imagesMetaDataReducer,
-    loggedInProfile: currentUserReducer,
+
     visitingUser: visitSelectedUserReducer,
     visitingUserImagesMetadata: selectedUserImagesMetadataPortfolioReducer,
+
+    myProfileMetaData: myProfileReducer,
+    myPortfolio: myPortfolioReducer,
 });
+
 
 const changeLikeValue = (imagesMetaData:Array<ImgMetaData>, imgMetaDataXL:any) => {
     console.log(`Is changeLikeValue even running?`);
@@ -83,7 +99,7 @@ type GET_NEW_PAGE = {
 type LOGGED_IN_PROFILE = {
     type: string;
     payload: {
-        username: any,
+        username: TempObj,
     };
 };
 type USER_DATA = {
@@ -108,7 +124,17 @@ type USER_IMAGES_METADATA = {
         userImagesURLList: Array<any>;
     }
 };
-type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | CHANGE_LIKE_VALUE | USER_IMAGES_LIST | USER_IMAGES_METADATA;
+type LOGGED_IN_PROFILE_PORTFOLIO = {
+    type: string;
+    payload: {
+        myProfileImagesMetaData: Array<any>
+    }
+};
+type CLEAR_MY_PROTFOLIO = {
+    type: string;
+    payload: any;
+}
+type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | CHANGE_LIKE_VALUE | USER_IMAGES_LIST | USER_IMAGES_METADATA | LOGGED_IN_PROFILE_PORTFOLIO | CLEAR_MY_PROTFOLIO;
 type ImgMetaData = {
     url: string;
     caption: string;
@@ -127,4 +153,13 @@ type visitingUser = {
     following?: number;
     profilePicture?: string;
     posts?: number;
-}
+};
+type TempObj = {
+    growwgramId: string,
+    name: string,
+    bio: string,
+    followers: number,
+    following: number,
+    total_photos: number,
+    pfpURL: string,
+};

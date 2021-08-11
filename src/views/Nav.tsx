@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
   faCloudMoonRain,
@@ -16,13 +18,15 @@ export default class Nav extends React.Component<Props, State>{
             <nav className='nav0133src'>
                 <ul className='header0133nav fs30'>
                     <li className='growwgram0133header'>
-                        Growwgram
+                        <Link to='/'>Growwgram</Link>
                     </li>
                     <li className='theme0133header push0133header' onClick={this.toggleDarkMode}>
                             {this.currentTheme() === 'light'? <FontAwesomeIcon icon={faSun} size='lg'/> : <FontAwesomeIcon icon={faCloudMoonRain} size='lg'/> }
                     </li>
                     <li className='myProfile0133header'>
-                            <FontAwesomeIcon icon={faUser} size='lg'/>
+                            <Link to='/profile'>
+                                <FontAwesomeIcon icon={faUser} size='lg'/>
+                            </Link>
                     </li>
                 </ul>
             </nav>

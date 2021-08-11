@@ -457,6 +457,9 @@ a:hover {
     justify-items: center;
     align-items:flex-start;
 }
+.portfolio0133profile > img {
+    align-self: center;
+}
 .imageDetails0133portfolio , .imageDetails0133portfolio li {
     padding: 2px 2px 0 2px;
     /* background-color: #00D09C; */

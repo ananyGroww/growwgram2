@@ -16,8 +16,8 @@ class App extends React.Component<Props, State> {
     render(){
         return(
             <div className='src0133root'>
-                <Nav/>
                 <BrowserRouter>
+                <Nav/>
                     <Route path='/' exact component={NewsFeed}/>
                     <Route path='/profile' exact component={ProfilePage}/>
                     <Footer/>

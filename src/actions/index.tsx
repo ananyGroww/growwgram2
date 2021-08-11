@@ -4,7 +4,7 @@ import axios from 'axios';
 export const getNewPage = (itemsPerPage:number = 10) => {
     return async function (dispatch:Function, getState:object){
         const response1:any = await sendNetworkRequest(`/photos/random`, { query: 'technology', count: itemsPerPage });
-        let imgObjList = cleanedResponse(response1);
+        let imgObjList = cleanedResponseforNewsFeed(response1);
         dispatch({
                 type: 'GET_NEW_PAGE',
                 payload:{
@@ -27,7 +27,7 @@ export const userImagesMetadataActionCreator = (username:string = '2renkov', pag
                 }
         }); 
     }
-}
+};
 export const visitSelectedUserActionCreator = (username:string = 'fakurian') => {
     console.log(`visitSelectedUserActionCreator/actioncreator: `, username);
     return async function (dispatch:Function, getState:object){
@@ -52,7 +52,7 @@ export const visitSelectedUserActionCreator = (username:string = 'fakurian') => 
             });
         }
     }
-}
+};
 // export const visitSelectedUserActionCreator = (index:number = 1, username:string = '2renkov') => {
 //     return async function (dispatch:Function, getState:object){
 //         // const response = await sendNetworkRequest(itemsPerPage);
@@ -94,38 +94,60 @@ export const likePressActionCreator = (id:string) => {
             console.log(`visitSelectedUser/actionCreators`, err, `(if its err401, the access token is invalid.)`);
         }
     }
+};
+export const myProfileActionCreator = (username:string = '2renkov') => { 
+    return async function (dispatch:Function, getState:object){
+        const response1:any = await sendNetworkRequest(`/users/${username}`, { username: username,});
+        console.log(`myProfileActionCreator/ActionCreator`, response1)
+        const myProfileMetaData:TempObj = cleanedResponseforMyProfile(response1);
+        dispatch({
+                type: 'LOGGED_IN_PROFILE',
+                payload:{
+                    myProfileMetaData: myProfileMetaData,
+                },
+        })
+    }
+};
+export const myImagesListActionCreator = (username:string, params:ParamsPortfolioImages) => {
+    const { pageno, per_page } = params;
+    return async function (dispatch:Function, getState:object){
+        const response1:any = await sendNetworkRequest(`/users/${username}/photos`, { 
+            username: username, 
+            page: pageno,
+            per_page: per_page,
+        });
+        // console.log(`myImagesListActionCreator/ActionCreator`, response1.data);
+        dispatch({
+                type: 'LOGGED_IN_PROFILE_PORTFOLIO',
+                payload:{
+                    myProfileImagesMetaData: response1.data,
+                },
+        })
+    }
+};
+export const clearmyPortfolioActionCreator = () => {
+    return {
+        type: 'CLEAR_MY_PORTFOLIO',
+        payload: {},
+    }
 }
 
-// THIS FUNCTION IS INCOMPLETE
-export const myProfileActionCreator = (username:string = '2renkov') => { 
-    console.log(`myProfileActionCreator`);
-    return async function (dispatch:Function, getState:object){
-        console.log(`!!!!`);
-        try{
-            console.log('????');
-            const response1:any = await sendNetworkRequest(`/users/2renkov`, { username: username,});
-            console.log(`myProfileActionCreator: `,response1);
-            dispatch({
-                    type: 'LOGGED_IN_PROFILE',
-                    payload:{
-                        userData: response1,
-                    },
-            });
-        }catch(err){
-            console.log(`errorCatch<==>visitSelectedUser/actionCreators`, err);
-        }
+const cleanedResponseforMyProfile = (response:any):TempObj => {
+    const { bio, followers_count, following_count, username, total_photos, name, profile_image } = response.data;
+    let tempObj:TempObj = {
+        growwgramId: username,
+        name: name,
+        bio: bio,
+        followers: followers_count,
+        following: following_count,
+        total_photos: total_photos,
+        pfpURL: profile_image.medium,
     }
-    // return {
-    //     type: 'LOGGED_IN_PROFILE',
-    //     payload: {
-    //         userName: userName,
-    //     },
-    // };
+    return tempObj;
 }
-const cleanedResponse = (response:any):Array<ImgMetaData> => {
+const cleanedResponseforNewsFeed = (response:any):Array<ImgMetaData> => {
     let imagesObj:any = response.data;
     let tempImgList:Array<ImgMetaData> = imagesObj.map( (imageObj:any) => {
-        // let image:ImgMetaData = imageObj;
         let image:ImgMetaData = {
             url: ``,
             caption: ``,
@@ -141,7 +163,6 @@ const cleanedResponse = (response:any):Array<ImgMetaData> => {
     return tempImgList;
 }
 const sendNetworkRequest = async (URI:string, params:Object):Promise<any> => {
-    // console.log(`sendNetworkRequest/AC-helper`, params);
     // Q: How to change below any in `response:any` to particular type?
     let response:any = await axios.get(`https://api.unsplash.com${URI}`, {
         params: params,
@@ -149,7 +170,6 @@ const sendNetworkRequest = async (URI:string, params:Object):Promise<any> => {
                 Authorization: 'Client-ID 5TN16pc1ZRFpinyndwixG65CXhFW0rcYutEP6l9jdIw'
             }
     });
-    // console.log(`response received. sendNetworkRequest`, response);
     return response;
 };
 const bind = (image:ImgMetaData, imagesObj:any) => {
@@ -169,4 +189,17 @@ type ImgMetaData = {
     likedByUser: boolean;
     location: string;
     user: any;
+};
+type TempObj = {
+    growwgramId: string,
+    name: string,
+    bio: string,
+    followers: number,
+    following: number,
+    total_photos: number,
+    pfpURL: string,
+};
+type ParamsPortfolioImages = {
+    pageno: number;
+    per_page: number;
 };
