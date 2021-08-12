@@ -98,7 +98,6 @@ export const likePressActionCreator = (id:string) => {
 export const myProfileActionCreator = (username:string = '2renkov') => { 
     return async function (dispatch:Function, getState:object){
         const response1:any = await sendNetworkRequest(`/users/${username}`, { username: username,});
-        console.log(`myProfileActionCreator/ActionCreator`, response1)
         const myProfileMetaData:TempObj = cleanedResponseforMyProfile(response1);
         dispatch({
                 type: 'LOGGED_IN_PROFILE',
@@ -111,6 +110,7 @@ export const myProfileActionCreator = (username:string = '2renkov') => {
 export const myImagesListActionCreator = (username:string, params:ParamsPortfolioImages) => {
     const { pageno, per_page } = params;
     return async function (dispatch:Function, getState:object){
+        // check if localstorage has data. if not, do net rqst
         const response1:any = await sendNetworkRequest(`/users/${username}/photos`, { 
             username: username, 
             page: pageno,

@@ -4,42 +4,20 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
 
 import {
-  faBookmark,
-  faComment,
-  faShareSquare,
-} from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import {
   clearmyPortfolioActionCreator,
   myImagesListActionCreator,
   myProfileActionCreator,
 } from '../actions';
-import Caption from '../common/Card/Caption';
-import Likes from '../common/Card/Likes';
+import MyProfile from '../ui/MyProfile';
+import ProfilePageCard from '../ui/ProfilePageCard';
 
 class ProfilePage extends React.Component<Props, State>{
     render(){
         const { myProfileMetaData, myPortfolio } = this.props;
-        const { growwgramId, bio, followers, following, pfpURL, total_photos } = myProfileMetaData;
+        // const { growwgramId, bio, followers, following, pfpURL, total_photos } = myProfileMetaData;
         return(
             <div className='profile0133src'>
-                <div className='userInfo0133profile'>
-                    <div className='pfp0133userInfo'>
-                        <img className='image' src={pfpURL} alt='Profile'/>
-                    </div>
-                    <ul className='stats0133userInfo'>
-                        <li key={growwgramId} className='growwgramId0133stats fs18'>{growwgramId}</li>
-                        <li>
-                            <ul className='metric0133stats'>
-                                <li key={followers}>Followers {followers?followers:0}</li>
-                                <li key={following}>Following {following?following:0}</li>
-                                <li key={total_photos}>Posts {total_photos}</li>
-                            </ul>
-                        </li>
-                        <li key={bio}>{bio}</li>
-                    </ul>
-                </div>
+                <MyProfile myProfileMetaData={myProfileMetaData}/>
                 <div>
                     <InfiniteScroll 
                         className='portfolio0133profile'
@@ -53,9 +31,6 @@ class ProfilePage extends React.Component<Props, State>{
                         {this.renderPortfolioImagesWithDetails()}
                     </InfiniteScroll>
                 </div>
-                {/* <div className='pportfolio0133profile'>
-                    {this.renderPortfolioImagesWithDetails()}
-                </div> */}
             </div>
         )
     };
@@ -63,33 +38,8 @@ class ProfilePage extends React.Component<Props, State>{
         const { myPortfolio } = this.props;
         let cards:Array<JSX.Element> = [];
         for(let i = 0; i < myPortfolio.length; i++) {
-            const { liked_by_user, alt_description, id, likes, urls,  } = myPortfolio[i];
             cards.push(
-                <div key='id'>
-                    <img
-                        className='image'
-                        key={`${id}+img`}
-                        src={urls.regular}
-                        alt={alt_description}
-                    />
-                    <div className='imageDetails0133portfolio'>
-                        <ul className='list0133CardBottomBanner fs12'>
-                            <li key={`${id}+likes`}>
-                                <Likes noOfLikes={likes} isLiked={liked_by_user}/>
-                            </li>
-                            <li key={`${id}+comment}`}>
-                                <FontAwesomeIcon icon={faComment} size='lg'/>
-                            </li>
-                            <li key={`${id}+share`} className='push0133cardBottomBanner'>
-                                <FontAwesomeIcon icon={faShareSquare} size='lg'/>
-                            </li>
-                            <li key={`${id}+bookmark`} className='push0133cardBottomBanner'>
-                                <FontAwesomeIcon icon={faBookmark} size='lg'/>
-                            </li>
-                        </ul>
-                        <Caption caption={alt_description}/>
-                    </div>
-                </div>
+                <ProfilePageCard key={myPortfolio[i].id+i} imgMetaData={myPortfolio[i]}/>
             );
         }
         return cards;
@@ -143,24 +93,24 @@ export default connect(
     }
 )(ProfilePage);
 type ReduxState = {
-    myProfileMetaData: TempObj;
+    myProfileMetaData: myProfileMetaData;
     myPortfolio: Array<any>;
 };
 type Props = {
     myProfileActionCreator: Function;
     myImagesListActionCreator: Function;
     clearmyPortfolioActionCreator: Function;
-    myProfileMetaData: TempObj;
+    myProfileMetaData: myProfileMetaData;
     myPortfolio: Array<any>;
 };
-type TempObj = {
-    growwgramId: string,
-    name: string,
-    bio: string,
-    followers: number,
-    following: number,
-    total_photos: number,
-    pfpURL: string,
+type myProfileMetaData = {
+    growwgramId: string;
+    name: string;
+    bio: string;
+    followers: number;
+    following: number;
+    total_photos: number;
+    pfpURL: string;
 };
 type State= {
     pageno: number;
