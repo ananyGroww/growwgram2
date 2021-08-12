@@ -21,7 +21,7 @@ import Likes from '../common/Card/Likes';
 class ProfilePage extends React.Component<Props, State>{
     render(){
         const { myProfileMetaData, myPortfolio } = this.props;
-        const { growwgramId, bio, followers, following, pfpURL, total_photos} = myProfileMetaData;
+        const { growwgramId, bio, followers, following, pfpURL, total_photos } = myProfileMetaData;
         return(
             <div className='profile0133src'>
                 <div className='userInfo0133profile'>
@@ -29,10 +29,14 @@ class ProfilePage extends React.Component<Props, State>{
                         <img className='image' src={pfpURL} alt='Profile'/>
                     </div>
                     <ul className='stats0133userInfo'>
-                        <li key={growwgramId} className='growwgramId0133stats fs12'>{growwgramId}</li>
-                        <li key={followers}>Followers {followers?followers:0}</li>
-                        <li key={following}>Following {following?following:0}</li>
-                        <li key={total_photos}>Posts {total_photos}</li>
+                        <li key={growwgramId} className='growwgramId0133stats fs18'>{growwgramId}</li>
+                        <li>
+                            <ul className='metric0133stats'>
+                                <li key={followers}>Followers {followers?followers:0}</li>
+                                <li key={following}>Following {following?following:0}</li>
+                                <li key={total_photos}>Posts {total_photos}</li>
+                            </ul>
+                        </li>
                         <li key={bio}>{bio}</li>
                     </ul>
                 </div>
@@ -107,13 +111,15 @@ class ProfilePage extends React.Component<Props, State>{
     }
     getMyProfile(){
         const nameOfMyProfile = this.state.nameOfMyProfile;
-        const { myProfileActionCreator, myImagesListActionCreator } = this.props;
+        const { myProfileActionCreator, myImagesListActionCreator, myPortfolio } = this.props;
         myProfileActionCreator(nameOfMyProfile);
-        const params = {
-            pageno: this.state.pageno,
-            per_page: 20,
-        };
-        myImagesListActionCreator(nameOfMyProfile, params);
+        if(myPortfolio.length === 0){
+            const params = {
+                pageno: this.state.pageno,
+                per_page: 20,
+            };
+            myImagesListActionCreator(nameOfMyProfile, params);
+        }
     }
     constructor(props:Props){
         super(props);

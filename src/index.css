@@ -48,6 +48,7 @@ html{
   --constantSecondaryClr180: #2A2A2A;
   --constantSecondaryClr10: #F6F6F7;
   --cardBackground: #FFF;
+  --growwgramIdColorDirection: 90deg;
 }
 html[data-theme="dark"] {
   /* global colors */
@@ -91,6 +92,7 @@ html[data-theme="dark"] {
   --constantSecondaryClr180: #2A2A2A;
   --constantSecondaryClr10: #2A2A2A;
   --cardBackground: #1D1D1D;
+  --growwgramIdColorDirection: 270deg;
 }
 .fs12 {
   font-size: 0.75rem;
@@ -408,46 +410,59 @@ a:hover {
 
 /* PROFILE PAGE CSS */
 .profile0133src{
+    --golden-ratio: 1.61803398875em;
     --max-profile-width-web: 800px;
     --max-width-card: 100px;
-    margin: auto 1em;
-    padding-top: calc(var(--nav-height) + 50px);
+
+    padding-top: calc(var(--nav-height) + var(--golden-ratio));
 }
+
 .userInfo0133profile {
     max-width: var(--max-profile-width-web);
-    display: flex;
-    margin: 2% auto;
+    margin: 0 auto;
+    padding-bottom: var(--golden-ratio);
     border-bottom: solid 1px var(--border);
+
+    display: flex;
+    justify-content: center;
 }
 .pfp0133userInfo > *{
-    /* Circular ProfilePicture (pfp) */
     border-radius: 50%;
     width: var(--max-width-card);
-    height: var(--max-width-card);
+    max-height: var(--max-width-card);
 }
 .stats0133userInfo{
     font-size: xx-small;
+    
+    margin-left: 5%;
+
     display: flex;
-    flex-wrap:wrap;
-    align-content: center;
+    flex-direction: column;
+    /* flex-wrap:wrap; */
+    /* align-content: center; */
+    justify-content: center;
 }
 .stats0133userInfo > li{
-    margin: 0.1% 10%;
+    margin: 0.5% 0;
 }
 .growwgramId0133stats {
     background: rgb(131,58,180);
-    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(0,255,4,1) 100%);
+    background: linear-gradient(var(--growwgramIdColorDirection), rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(0,255,4,1) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.stats0133userInfo :first-child, .stats0133userInfo :last-child{
-    flex-basis: 100%;
+.metric0133stats{
+    display: flex;
 }
+.metric0133stats > li {
+    margin-right: 10px;
+}
+
 .portfolio0133profile{
     --max-width-card: 250px;
     max-width: var(--max-profile-width-web);
-    margin: 2% auto;
+    margin: var(--golden-ratio) auto;
     display: grid;
     grid-gap: 1em; gap: 1em; /*same thing. key is updated in spec*/
     grid-template-columns: repeat(3, 1fr); 
