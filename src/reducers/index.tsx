@@ -36,7 +36,8 @@ export const visitSelectedUserReducer = (visitingUser:visitingUser = {}, action:
     return visitingUser;
 };
 
-export const myProfileReducer = (myProfileMetaData:any = '2renkov', action:action) => {
+const myProfileMetaDataTemp = { growwgramId: 'emptyrightnow0133',name: '',bio: '',followers: 0,following: 0,total_photos: 0,pfpURL: '', }
+export const myProfileReducer = (myProfileMetaData:myProfileMetaData = myProfileMetaDataTemp, action:action) => {
     if( action.type === 'LOGGED_IN_PROFILE' ){
         return action.payload.myProfileMetaData;
     }
@@ -133,7 +134,16 @@ type LOGGED_IN_PROFILE_PORTFOLIO = {
 type CLEAR_MY_PROTFOLIO = {
     type: string;
     payload: any;
-}
+};
+type myProfileMetaData = {
+    growwgramId: string;
+    name: string;
+    bio: string;
+    followers: number;
+    following: number;
+    total_photos: number;
+    pfpURL: string;
+};
 type action = GET_NEW_PAGE | LOGGED_IN_PROFILE | USER_DATA | CHANGE_LIKE_VALUE | USER_IMAGES_LIST | USER_IMAGES_METADATA | LOGGED_IN_PROFILE_PORTFOLIO | CLEAR_MY_PROTFOLIO;
 type ImgMetaData = {
     url: string;

@@ -8,15 +8,22 @@ import {
   myImagesListActionCreator,
   myProfileActionCreator,
 } from '../actions';
+import ProfileCardLoading from '../common/ProfileCardLoading';
+// import ProfileStatsLoading from '../common/ProfileStatsLoading';
 import MyProfile from '../ui/MyProfile';
 import ProfilePageCard from '../ui/ProfilePageCard';
 
 class ProfilePage extends React.Component<Props, State>{
     render(){
         const { myProfileMetaData, myPortfolio } = this.props;
+        console.log(`This is present in myProfileMetaData when /apiresponse: `,myProfileMetaData);
         // const { growwgramId, bio, followers, following, pfpURL, total_photos } = myProfileMetaData;
         return(
             <div className='profile0133src'>
+                {/* { myProfileMetaData.growwgramId === 'emptyrightnow0133' ?
+                    <ProfileStatsLoading/> :
+                    <MyProfile myProfileMetaData={myProfileMetaData}/>
+                } */}
                 <MyProfile myProfileMetaData={myProfileMetaData}/>
                 <div>
                     <InfiniteScroll 
@@ -28,7 +35,10 @@ class ProfilePage extends React.Component<Props, State>{
                                 `Please wait while GrowwGram loads more images.`
                         }
                     >
-                        {this.renderPortfolioImagesWithDetails()}
+                        {myPortfolio.length === 0 ?
+                            <ProfileCardLoading/> :
+                            this.renderPortfolioImagesWithDetails()
+                        }
                     </InfiniteScroll>
                 </div>
             </div>
