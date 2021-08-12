@@ -1,0 +1,16 @@
+.profile0133src{
+    --golden-ratio: 1.61803398875em;
+    --max-profile-width-web: 300px;
+    --max-width-card: 100px;
+
+    padding-top: calc(var(--nav-height) + var(--golden-ratio));
+}
+@media screen and (min-width: 800px){
+    .profile0133src{
+    --golden-ratio: 1.61803398875em;
+    --max-profile-width-web: 800px;
+    --max-width-card: 100px;
+
+    padding-top: calc(var(--nav-height) + var(--golden-ratio)); 
+    }
+}

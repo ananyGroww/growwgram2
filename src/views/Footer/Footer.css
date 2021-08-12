@@ -1,0 +1,21 @@
+.footer0133src{
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--secondaryClr150);
+    color: var(--constantWhite);
+}
+.footer0133src a:hover{
+    text-decoration: none;
+}
+
+@media screen and (min-width: 800px) {
+    .footer0133src{
+        display: flex;
+        justify-content: space-around;
+        background-color: var(--secondaryClr150);
+        color: var(--constantWhite);
+    }
+    .footer0133src a:hover{
+        text-decoration: none;
+    }
+}

@@ -9,8 +9,8 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { likePressActionCreator } from '../actions';
-import Likes from '../common/Card/Likes';
+import { likePressActionCreator } from '../../actions';
+import Likes from './Likes';
 
 class CardBottomBanner extends React.Component<Props>{
     // https://reactjs.org/docs/faq-functions.html#class-properties-stage-3-proposal

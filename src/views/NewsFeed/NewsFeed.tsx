@@ -1,11 +1,14 @@
+import './RightSideColumn.css';
+import './NewsFeed.css';
+
 import React from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
 
-import { getNewPage } from '../actions';
-import NewsFeedLoader from '../common/NewsFeedLoader';
-import Card from '../ui/Card';
+import { getNewPage } from '../../actions';
+import Card from '../../ui/card/Card';
+import NewsFeedLoader from './NewsFeedLoader';
 import RightSideColumn from './RightSideColumn';
 
 class NewsFeed extends React.Component<Props, State>{
@@ -28,7 +31,6 @@ class NewsFeed extends React.Component<Props, State>{
                             <NewsFeedLoader/> :
                             this.renderCardsList()
                         }
-                        {/* {this.renderCardsList()} */}
                     </InfiniteScroll>
                 </div>
                 <RightSideColumn/>

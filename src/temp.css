@@ -1,0 +1,68 @@
+.card{
+    --card-margin: 5px;
+    --instagram-padding: 16px;
+    margin: var(--margin-between-cards) auto;
+    max-width: var(--max-width-card);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    background-color: var(--cardBackground);
+    box-shadow: var(--boxShadow) 0px 0px 0px 1px; 
+}
+.card:first-of-type{
+    margin-top: 0;
+}
+
+.CardTopBanner{
+    align-self: flex-start;
+    padding: var(--instagram-padding);
+
+    display: flex;
+
+    font-size: xx-small;
+    border: soild 1px var(--border);
+}
+.pfp0133CardTopBanner{
+    font-size: xx-large; /* sytling the favicon */
+    padding-right: var(--instagram-padding);
+}
+.growwId0133CardTopBanner{
+    border-bottom: 1px solid var(--border);
+}
+
+.image{
+    /* https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit */
+    object-fit: fill;
+    /* max-width: var(--max-width-card);
+    max-height: var(--max-width-card); */
+    width: 100%;
+    height: var(--max-width-card);
+}
+
+
+
+.like{
+    cursor: pointer;
+}
+
+.CardBottomBanner{
+    align-self: stretch;
+    padding: var(--instagram-padding);
+
+    display: flex;
+    flex-direction: column;
+}
+.list0133CardBottomBanner{
+    display: flex;
+}
+.list0133CardBottomBanner > * {
+    padding-right: var(--instagram-padding);
+}
+.list0133CardBottomBanner > li:last-child{
+    padding-right: 0; /* reset padding aquired from above rule */
+    margin-left: auto;
+}

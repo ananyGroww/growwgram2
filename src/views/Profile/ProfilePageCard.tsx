@@ -7,8 +7,8 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Caption from '../common/Card/Caption';
-import Likes from '../common/Card/Likes';
+import Likes from '../../ui/card/Likes';
+import Caption from './Caption';
 
 class ProfilePageCard extends React.Component<Props>{
     // get (list of images, caption, likes), total likes, name, location for user with userId stored in this.props.userData

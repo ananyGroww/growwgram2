@@ -1,7 +1,9 @@
+import './Card.css';
+
 import React from 'react';
 
-import CardPrimaryPicture from '../common/Card/CardPrimaryPicture';
 import CardBottomBanner from './CardBottomBanner';
+import CardPrimaryPicture from './CardPrimaryPicture';
 import CardTopBanner from './CardTopBanner';
 
 class Card extends React.Component<Props>{

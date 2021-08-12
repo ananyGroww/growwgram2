@@ -1,3 +1,7 @@
+import './MyProfile.css';
+import './ProfilePageCard.css';
+import './ProfilePage.css';
+
 import React from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -7,23 +11,16 @@ import {
   clearmyPortfolioActionCreator,
   myImagesListActionCreator,
   myProfileActionCreator,
-} from '../actions';
-import ProfileCardLoading from '../common/ProfileCardLoading';
-// import ProfileStatsLoading from '../common/ProfileStatsLoading';
-import MyProfile from '../ui/MyProfile';
-import ProfilePageCard from '../ui/ProfilePageCard';
+} from '../../actions';
+import MyProfile from './MyProfile';
+import ProfileCardLoading from './ProfileCardLoading';
+import ProfilePageCard from './ProfilePageCard';
 
 class ProfilePage extends React.Component<Props, State>{
     render(){
         const { myProfileMetaData, myPortfolio } = this.props;
-        console.log(`This is present in myProfileMetaData when /apiresponse: `,myProfileMetaData);
-        // const { growwgramId, bio, followers, following, pfpURL, total_photos } = myProfileMetaData;
         return(
             <div className='profile0133src'>
-                {/* { myProfileMetaData.growwgramId === 'emptyrightnow0133' ?
-                    <ProfileStatsLoading/> :
-                    <MyProfile myProfileMetaData={myProfileMetaData}/>
-                } */}
                 <MyProfile myProfileMetaData={myProfileMetaData}/>
                 <div>
                     <InfiniteScroll 

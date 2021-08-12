@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   userImagesMetadataActionCreator,
   visitSelectedUserActionCreator,
-} from '../actions';
+} from '../../actions';
 
 class CardTopBanner extends React.Component<Props>{
     render(){
