@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/%7Bgrowwgram2%7D/static/css/main.f8a41a88.chunk.css",
+    "main.js": "/%7Bgrowwgram2%7D/static/js/main.6ad627a7.chunk.js",
+    "main.js.map": "/%7Bgrowwgram2%7D/static/js/main.6ad627a7.chunk.js.map",
+    "runtime-main.js": "/%7Bgrowwgram2%7D/static/js/runtime-main.84d95ff8.js",
+    "runtime-main.js.map": "/%7Bgrowwgram2%7D/static/js/runtime-main.84d95ff8.js.map",
+    "static/js/2.031ae65c.chunk.js": "/%7Bgrowwgram2%7D/static/js/2.031ae65c.chunk.js",
+    "static/js/2.031ae65c.chunk.js.map": "/%7Bgrowwgram2%7D/static/js/2.031ae65c.chunk.js.map",
+    "index.html": "/%7Bgrowwgram2%7D/index.html",
+    "static/css/main.f8a41a88.chunk.css.map": "/%7Bgrowwgram2%7D/static/css/main.f8a41a88.chunk.css.map",
+    "static/js/2.031ae65c.chunk.js.LICENSE.txt": "/%7Bgrowwgram2%7D/static/js/2.031ae65c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.84d95ff8.js",
+    "static/js/2.031ae65c.chunk.js",
+    "static/css/main.f8a41a88.chunk.css",
+    "static/js/main.6ad627a7.chunk.js"
+  ]
+}
