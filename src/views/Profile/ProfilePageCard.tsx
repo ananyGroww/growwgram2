@@ -11,13 +11,12 @@ import Likes from '../../ui/card/Likes';
 import Caption from './Caption';
 
 class ProfilePageCard extends React.Component<Props>{
-    // get (list of images, caption, likes), total likes, name, location for user with userId stored in this.props.userData
     render(){
         const { liked_by_user, alt_description, id, likes, urls,  } = this.props.imgMetaData;
         return(
             <div key='id'>
                     <img
-                        className='image'
+                        className='profileCardImage'
                         src={urls.regular}
                         alt={alt_description}
                     />

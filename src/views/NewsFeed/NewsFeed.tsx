@@ -6,7 +6,8 @@ import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
 
-import { getNewPage } from '../../actions';
+import { getNewPageActionCreator } from '../../actions';
+import { ImgMetaData } from '../../constants/actionReducerConstants';
 import Card from '../../ui/card/Card';
 import NewsFeedLoader from './NewsFeedLoader';
 import RightSideColumn from './RightSideColumn';
@@ -21,11 +22,7 @@ class NewsFeed extends React.Component<Props, State>{
                         dataLength={imagesMetaData.length} 
                         next={this.loadMorePosts} 
                         hasMore={true} 
-                        loader={
-                            <div style={{fontSize:"xx-small"}}>
-                                Please wait while GrowwGram to load more images.
-                            </div>
-                        }
+                        loader={<NewsFeedLoader/>}
                     >
                         { imagesMetaData.length === 0 ?
                             <NewsFeedLoader/> :
@@ -37,48 +34,39 @@ class NewsFeed extends React.Component<Props, State>{
             </div>
         )
     }
+    componentDidMount(){
+        const {getNewPageActionCreator, imagesMetaData} = this.props;
+        
+        if(imagesMetaData.length === 0)
+        getNewPageActionCreator();
+    }
+    loadMorePosts = () => {
+        console.log(`loadMorePosts/NewsFeed: Hold on. Loading more posts...`);
+        this.props.getNewPageActionCreator();
+    }
     renderCardsList():Array<JSX.Element>{
         const { imagesMetaData } = this.props;
         let cards:Array<JSX.Element> = [];
         for(let i = 0; i < imagesMetaData.length; i++) {
-            cards.push(<Card key={imagesMetaData[i].id} index={i} imgMetaData={imagesMetaData[i]}/>)
+            cards.push(<Card key={imagesMetaData[i].id +i} index={i} imgMetaData={imagesMetaData[i]}/>)
         }
         return cards;
     }
-    componentDidMount(){
-        const {getNewPage, imagesMetaData} = this.props;
-
-        if(imagesMetaData.length === 0)
-            getNewPage();
-    }
-    loadMorePosts = () => {
-        console.log(`loadMorePosts/NewsFeed: Was 'loadMorePosts()' called?`);
-        this.props.getNewPage();
-    };
 }
 const mapStateToProps = (state:ReduxState) => {
     return {imagesMetaData: state.imagesMetaData};
 }
-export default connect(mapStateToProps, { getNewPage: getNewPage, })(NewsFeed);
+export default connect(mapStateToProps, { getNewPageActionCreator: getNewPageActionCreator, })(NewsFeed);
 
 type Props = {
     imagesMetaData: Array<ImgMetaData>;
-    getNewPage: Function;
-};
-type ImgMetaData = {
-    url: string;
-    caption: string;
-    likes: number;
-    id: string;
-    likedByUser: boolean;
-    location: string;
-    user: any;
-};
+    getNewPageActionCreator: Function;
+}
 type ReduxState = {
     imagesMetaData: Array<ImgMetaData>;
     loggedInProfile: string;
     userData: any,
-};
+}
 type State = {
     imagesList: Array<ImgMetaData>;
 }

@@ -1,7 +1,7 @@
 .nav0133src{
     --nav-padding: 10px;
     color: var(--primaryClr);
-    padding: var(--nav-padding) 0 var(--nav-padding) 0;
+    padding: var(--nav-padding) 0 ;
     box-shadow: var(--boxShadow) 0px var(--shadow-spread-bottom) var(--shadow-spread-bottom) -10px;
     /* https://www.w3schools.com/howto/howto_js_navbar_sticky.asp */
     position: fixed;
@@ -12,19 +12,19 @@
 }
 .header0133nav{
     display: flex;
-    max-width: var(--max-profile-width-web);
-    margin: 0 auto;
+    margin: 0 10px;
 }
 .growwgram0133header{
     font-family: 'Tangerine', cursive;
     font-size: xx-large;
 }
+.header0133nav :nth-child(2){ 
+    margin-left: auto;
+    cursor: pointer;
+}
 .header0133nav :not(:first-child){ 
     padding: 0 0 0 var(--nav-padding);
     cursor: pointer;
-}
-.push0133header {
-    margin-left: auto;
 }
 
 @media screen and (min-width: 800px) {
@@ -49,11 +49,12 @@
         font-family: 'Tangerine', cursive;
         font-size: xx-large;
     }
+    .header0133nav :nth-child(2){ 
+        margin-left: auto;
+        cursor: pointer;
+    }
     .header0133nav :not(:first-child){ 
         padding: 0 0 0 var(--nav-padding);
         cursor: pointer;
-    }
-    .push0133header {
-        margin-left: auto;
     }
 }

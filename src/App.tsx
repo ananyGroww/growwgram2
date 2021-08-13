@@ -12,14 +12,14 @@ import Nav from './views/Nav/Nav';
 import NewsFeed from './views/NewsFeed/NewsFeed';
 import ProfilePage from './views/Profile/ProfilePage';
 
-class App extends React.Component<Props, State> {
+class App extends React.Component{
     render(){
         return(
             <div className='src0133root'>
                 <BrowserRouter>
                     <Nav/>
                     <Route path='/' exact component={NewsFeed}/>
-                    <Route path='/profile' exact component={ProfilePage}/>
+                    <Route path='/myprofile' exact component={ProfilePage}/>
                     <Footer/>
                 </BrowserRouter>
             </div>
@@ -27,7 +27,3 @@ class App extends React.Component<Props, State> {
     };
 }
 export default App;
-type Props = {};
-type State = {
-    darkMode: boolean;
-};

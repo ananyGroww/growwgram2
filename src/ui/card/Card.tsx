@@ -8,7 +8,6 @@ import CardTopBanner from './CardTopBanner';
 
 class Card extends React.Component<Props>{
     render(){
-        // console.log(`render./Card `,this.props.imgMetaData.url);
         const { imgMetaData } = this.props;
         return(
             <div className='card'>

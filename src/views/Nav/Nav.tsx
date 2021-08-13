@@ -7,14 +7,12 @@ import { Link } from 'react-router-dom';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
   faCloudMoonRain,
+  faCrosshairs,
   faSun,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class Nav extends React.Component<Props, State>{
-    // The button for dark mode is not changing coz the
-    // update happening on localStorage. To change buttons
-    // create a state prop and update it too.
     render(){
         return(
             <nav className='nav0133src'>
@@ -23,10 +21,19 @@ export default class Nav extends React.Component<Props, State>{
                         <Link to='/'>Growwgram</Link>
                     </li>
                     <li className='theme0133header push0133header' onClick={this.toggleDarkMode}>
-                            {this.currentTheme() === 'light'? <FontAwesomeIcon icon={faSun} size='lg'/> : <FontAwesomeIcon icon={faCloudMoonRain} size='lg'/> }
+                            { 
+                                this.currentTheme() === 'light'? 
+                                <FontAwesomeIcon icon={faSun} size='lg'/> : 
+                                <FontAwesomeIcon icon={faCloudMoonRain} size='lg'/> 
+                            }
                     </li>
                     <li className='myProfile0133header'>
-                            <Link to='/profile'>
+                            <Link to='/testwindow'>
+                                <FontAwesomeIcon icon={faCrosshairs} size='lg'/>
+                            </Link>
+                    </li>
+                    <li className='myProfile0133header'>
+                            <Link to='/myprofile'>
                                 <FontAwesomeIcon icon={faUser} size='lg'/>
                             </Link>
                     </li>
@@ -52,7 +59,8 @@ export default class Nav extends React.Component<Props, State>{
     };
     constructor(props:Props){
         super(props);
-        localStorage.setItem("DARK_MODE",'light');
+        if(localStorage.getItem("DARK_MODE") === null)
+            localStorage.setItem("DARK_MODE",'light');
     };
 };
 type Props = {};

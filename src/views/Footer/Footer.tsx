@@ -9,7 +9,7 @@ export default class Footer extends React.Component{
         return(
             <div className='footer0133src'>
                 <Link to='/'>News feed</Link>
-                <Link to='/profile'>My Profile</Link>
+                <Link to='/myprofile'>My Profile</Link>
             </div>
         );
     }

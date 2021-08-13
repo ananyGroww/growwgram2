@@ -1,12 +1,15 @@
 .card{
     --card-margin: 5px;
     --instagram-padding: 16px;
-    margin: var(--margin-between-cards) auto;
-    max-width: var(--max-width-card);
+    --border-clip-eliminate: 2px;
+    width: calc(100% - var(--border-clip-eliminate));
+    /* margin: var(--margin-between-cards) auto; */
+    margin: var(--margin-between-cards) 0;
+    /* max-width: var(--max-width-card); */
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 
     border: 1px solid var(--border);
     border-radius: var(--border-radius);
@@ -32,11 +35,14 @@
 }
 .growwId0133CardTopBanner{
     border-bottom: 1px solid var(--border);
-}.image{
+}
+.image{
     /* https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit */
     object-fit: cover;
     max-width: var(--max-width-card);
     max-height: var(--max-width-card);
+    display: block;
+    margin: 0 auto;
 }
 
 .like{

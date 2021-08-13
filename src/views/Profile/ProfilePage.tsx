@@ -8,10 +8,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
 
 import {
-  clearmyPortfolioActionCreator,
   myImagesListActionCreator,
   myProfileActionCreator,
 } from '../../actions';
+import { myProfileMetaData } from '../../constants/actionReducerConstants';
 import MyProfile from './MyProfile';
 import ProfileCardLoading from './ProfileCardLoading';
 import ProfilePageCard from './ProfilePageCard';
@@ -54,9 +54,6 @@ class ProfilePage extends React.Component<Props, State>{
     componentDidMount(){
         this.getMyProfile();
     }
-    componentWillUnmount(){
-        this.props.clearmyPortfolioActionCreator();
-    }
     loadMorePosts = () => {
         console.log(`was this 'loadMorePosts()' called?`);
         this.setState({pageno: this.state.pageno+1,});
@@ -68,7 +65,7 @@ class ProfilePage extends React.Component<Props, State>{
     }
     getMyProfile(){
         const nameOfMyProfile = this.state.nameOfMyProfile;
-        const { myProfileActionCreator, myImagesListActionCreator, myPortfolio } = this.props;
+        const { myProfileActionCreator, myImagesListActionCreator, myPortfolio, } = this.props;
         myProfileActionCreator(nameOfMyProfile);
         if(myPortfolio.length === 0){
             const params = {
@@ -82,7 +79,7 @@ class ProfilePage extends React.Component<Props, State>{
         super(props);
         this.state = {
             pageno: 1,
-            nameOfMyProfile: `laukev`,
+            nameOfMyProfile: `sakulich`,
         }
     }
 }
@@ -96,7 +93,6 @@ export default connect(
     mapStateToProps, {
         myProfileActionCreator: myProfileActionCreator,
         myImagesListActionCreator: myImagesListActionCreator,
-        clearmyPortfolioActionCreator: clearmyPortfolioActionCreator,
     }
 )(ProfilePage);
 type ReduxState = {
@@ -106,18 +102,9 @@ type ReduxState = {
 type Props = {
     myProfileActionCreator: Function;
     myImagesListActionCreator: Function;
-    clearmyPortfolioActionCreator: Function;
+    
     myProfileMetaData: myProfileMetaData;
     myPortfolio: Array<any>;
-};
-type myProfileMetaData = {
-    growwgramId: string;
-    name: string;
-    bio: string;
-    followers: number;
-    following: number;
-    total_photos: number;
-    pfpURL: string;
 };
 type State= {
     pageno: number;

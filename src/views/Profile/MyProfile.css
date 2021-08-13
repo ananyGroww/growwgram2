@@ -1,15 +1,16 @@
 .userInfo0133profile {
-    max-width: var(--max-profile-width-web);
-    margin: 0 auto;
+    /* max-width: var(--max-profile-width-web);
+    margin: 0 auto; */
     padding-bottom: var(--golden-ratio);
     border-bottom: solid 1px var(--border);
 
     display: flex;
-    justify-content: center;
-    max-width: var(--max-profile-width-web);
-    margin: 0 auto;
+    /* justify-content: center; */
+    /* max-width: var(--max-profile-width-web);
+    margin: 0 auto; */
+    margin: 0 10px;
 }
-.pfp0133userInfo > *{
+.pfp0133userInfo > * {
     border-radius: 50%;
     width: var(--max-width-card);
     max-height: var(--max-width-card);

@@ -10,6 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { likePressActionCreator } from '../../actions';
+import { ImgMetaData } from '../../constants/actionReducerConstants';
 import Likes from './Likes';
 
 class CardBottomBanner extends React.Component<Props>{
@@ -21,8 +22,7 @@ class CardBottomBanner extends React.Component<Props>{
         
     }
     render(){
-        const { imgMetaData } = this.props;
-        const { likes, likedByUser, caption } =imgMetaData;
+        const { likes, likedByUser, caption } =this.props.imgMetaData;
         
         return(
             <div className='CardBottomBanner fs12'>
@@ -43,7 +43,6 @@ class CardBottomBanner extends React.Component<Props>{
                 <div className='caption0133CardBottomBanner'>
                     {caption}
                 </div>
-                {/* <Caption caption={caption}/> */}
             </div>
         );
     }
@@ -57,15 +56,6 @@ type ReduxState = {
     imagesMetaData: Array<ImgMetaData>;
     loggedInProfile: string;
     userData: any,
-};
-type ImgMetaData = {
-    url: string;
-    caption: string;
-    likes: number;
-    id: string;
-    likedByUser: boolean;
-    location: string;
-    user: any;
 };
 type Props = {
     likePressActionCreator: Function;

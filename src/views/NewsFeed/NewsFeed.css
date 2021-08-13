@@ -3,7 +3,8 @@
     --grid-gap: 1.61803398875em;
     --margin-between-cards: var(--grid-gap);
     --border-radius: 10px;
-    max-width: var(--max-profile-width-web);
+    /* max-width: var(--max-profile-width-web); */
+    max-width: 100%;
     display: grid;
     margin: 0 auto;
     grid-gap: var(--grid-gap); gap: var(--grid-gap);
@@ -12,7 +13,9 @@
     padding-top: calc(var(--nav-height) + var(--margin-between-cards));
 }
 .newsFeed0133mainPage{
-    --max-width-card: 300px;
+    /* --max-width-card: 300px; */
+    --max-width-card: 100%;
+
 }
 @media screen and (min-width: 800px) {
     .mainPage0133src{

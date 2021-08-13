@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { myProfileMetaData } from '../../constants/actionReducerConstants';
 import ProfileStatsLoading from './ProfileStatsLoading';
 
 export default class MyProfile extends React.Component<Props>{
@@ -15,12 +16,12 @@ export default class MyProfile extends React.Component<Props>{
                         <img className='image' src={pfpURL} alt='Profile'/>
                     </div>
                     <ul className='stats0133userInfo'>
-                        <li key={growwgramId} className='growwgramId0133stats fs18'>{growwgramId}</li>
+                        <li key={growwgramId}><span className='growwgramId0133stats fs18'>{growwgramId}</span></li>
                         <li key='middlerow'>
                             <ul className='metric0133stats'>
-                                <li key={followers}>Followers {followers?followers:0}</li>
-                                <li key={following}>Following {following?following:0}</li>
-                                <li key={total_photos}>Posts {total_photos}</li>
+                                <li key={followers}>{followers?followers:0} Followers</li>
+                                <li key={following}>{following?following:0} Following</li>
+                                <li key={total_photos}>{total_photos} Posts</li>
                             </ul>
                         </li>
                         <li key={bio}>{bio}</li>
@@ -31,13 +32,4 @@ export default class MyProfile extends React.Component<Props>{
 };
 type Props = {
     myProfileMetaData: myProfileMetaData;
-};
-type myProfileMetaData = {
-    growwgramId: string;
-    name: string;
-    bio: string;
-    followers: number;
-    following: number;
-    total_photos: number;
-    pfpURL: string;
 };
