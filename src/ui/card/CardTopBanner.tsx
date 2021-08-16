@@ -3,10 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 
 import { connect } from 'react-redux';
-import {
-  toast,
-  ToastContainer,
-} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import {
   userImagesMetadataActionCreator,
@@ -33,23 +30,26 @@ class CardTopBanner extends React.Component<Props>{
                         {imgMetaData.location}
                     </li>
                 </ul>
-                <ToastContainer />
+                {/* <ToastContainer limit={1}/> */}
             </div>
         );
     };
     // THIS IS BROKEN IDK WHY
     // A: Like reduxstate data, action creators should be called with `this.props.`, not alone/direct call
     gotoProfile = () => {
+        
         const notify = () => toast.info(`🦄 Visiting another user's profile coming soon!`, {
             position: "bottom-center",
-            autoClose: 5000,
-            hideProgressBar: false,
+            autoClose: 3000,
+            hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            });
-        notify();
+            toastId: `32`,
+        });
+        if( !toast.isActive('32') )
+            notify();
         // const { visitSelectedUserActionCreator, userImagesMetadataActionCreator, imgMetaData } = this.props;
         // const { username, } = imgMetaData.user;
         // console.log(`gotoProfile/CardTopBanner is called.`);

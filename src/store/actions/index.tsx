@@ -55,10 +55,12 @@ export const myImagesListActionCreator = (username:string, params:CONST.ParamsPo
                 page: pageno,
                 per_page: per_page,
             });
+            const imgObjList = cleanedResponseforMyPortfolio(response1);
             dispatch({
                     type: CONST.LOGGED_IN_PROFILE_PORTFOLIO,
                     payload:{
-                        myProfileImagesMetaData: response1.data,
+                        // myProfileImagesMetaData: response1.data,
+                        myProfileImagesMetaData: imgObjList,
                     },
             });
         }catch(err){
@@ -165,6 +167,23 @@ const cleanedResponseforNewsFeed = (response:any):Array<CONST.ImgMetaData> => {
             id: id,
             likedByUser: liked_by_user,
             location: location.name,
+            user:user,
+        };
+        return image;
+    } );
+    return tempImgList;
+}
+const cleanedResponseforMyPortfolio = (response:any):Array<CONST.ImgMetaData> => {
+    let imagesObj:any = response.data;
+    let tempImgList:Array<CONST.ImgMetaData> = imagesObj.map( (imageObj:any) => {
+        const { urls,alt_description,likes,id,liked_by_user,location,user } = imageObj;
+        let image:CONST.ImgMetaData = {
+            url: urls.regular,
+            caption: alt_description,
+            likes: likes,
+            id: id,
+            likedByUser: liked_by_user,
+            location: location?.name,
             user:user,
         };
         return image;

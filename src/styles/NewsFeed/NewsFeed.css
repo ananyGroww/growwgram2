@@ -2,7 +2,7 @@
     --nav-height: 60px; /* manually computed */
     --grid-gap: 1.61803398875em;
     --margin-between-cards: var(--grid-gap);
-    --border-radius: 10px;
+    --border-radius: 0;
     /* max-width: var(--max-profile-width-web); */
     max-width: 100%;
     display: grid;

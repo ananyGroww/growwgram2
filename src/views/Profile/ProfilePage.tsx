@@ -7,21 +7,19 @@ import React from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
-import {
-  toast,
-  ToastContainer,
-} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import {
   myImagesListActionCreator,
   myProfileActionCreator,
 } from '../../store/actions';
+import ProfilePageCard from '../../ui/profileCard/ProfilePageCard';
 import {
   myProfileMetaData,
 } from '../../utils/constants/actionReducerConstants';
-import MyProfile from './MyProfile';
+import { MY_PROFILE } from '../../utils/constants/growwgramConstants';
+import MyProfile from './AboutMe';
 import ProfileCardLoading from './ProfileCardLoading';
-import ProfilePageCard from './ProfilePageCard';
 
 class ProfilePage extends React.Component<Props, State>{
     render(){
@@ -45,17 +43,6 @@ class ProfilePage extends React.Component<Props, State>{
                         }
                     </InfiniteScroll>
                 </div>
-                <ToastContainer
-                    position="bottom-center"
-                    autoClose={10000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss={false}
-                    draggable
-                    pauseOnHover
-                />
             </div>
         )
     };
@@ -104,9 +91,10 @@ class ProfilePage extends React.Component<Props, State>{
     }
     constructor(props:Props){
         super(props);
+        window.scrollTo(0, 0);
         this.state = {
             pageno: 1,
-            nameOfMyProfile: `sakulich`,
+            nameOfMyProfile: MY_PROFILE,
         }
     }
 }

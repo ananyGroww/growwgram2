@@ -3,7 +3,7 @@ import React from 'react';
 import {
   myProfileMetaData,
 } from '../../utils/constants/actionReducerConstants';
-import ProfileStatsLoading from './ProfileStatsLoading';
+import ProfileStatsLoading from './AboutMeLoading';
 
 export default class MyProfile extends React.Component<Props>{
     render(){

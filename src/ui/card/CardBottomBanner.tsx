@@ -3,10 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 
 import { connect } from 'react-redux';
-import {
-  toast,
-  ToastContainer,
-} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import {
   faBookmark,
@@ -15,6 +12,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Caption from '../../common/Caption';
 import { likePressActionCreator } from '../../store/actions';
 import { ImgMetaData } from '../../utils/constants/actionReducerConstants';
 import Likes from './Likes';
@@ -43,9 +41,8 @@ class CardBottomBanner extends React.Component<Props>{
             <div className='CardBottomBanner fs12'>
                 <ul className='list0133CardBottomBanner'>
                     <li className='like' onClick={this.handleLike}>
-                            <Likes noOfLikes={likes} isLiked={likedByUser}/>
+                        <Likes noOfLikes={likes} isLiked={likedByUser}/>
                     </li>
-                    
                     <li>
                         <FontAwesomeIcon icon={faComment} size='lg'/>
                     </li>
@@ -56,20 +53,10 @@ class CardBottomBanner extends React.Component<Props>{
                         <FontAwesomeIcon icon={faBookmark} size='lg'/>
                     </li>
                 </ul>
-                <ToastContainer
-                    position="bottom-center"
-                    autoClose={10000}
-                    hideProgressBar
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss={false}
-                    draggable
-                    pauseOnHover
-                />
-                <div className='caption0133CardBottomBanner'>
+                <Caption caption={caption}/>
+                {/* <div className='caption0133CardBottomBanner'>
                     {caption}
-                </div>
+                </div> */}
             </div>
         );
     }

@@ -14,7 +14,7 @@
     border: 1px solid var(--border);
     border-radius: var(--border-radius);
     background-color: var(--cardBackground);
-    box-shadow: var(--boxShadow) 0px 0px 0px 1px; 
+    /* box-shadow: var(--boxShadow) 0px 0px 0px 1px;  */
 }
 .card:first-of-type{
     margin-top: 0;
@@ -23,14 +23,12 @@
 .CardTopBanner{
     align-self: flex-start;
     padding: var(--instagram-padding);
-
     display: flex;
 
     font-size: xx-small;
     border: soild 1px var(--border);
 }
 .pfp0133CardTopBanner{
-    font-size: xx-large; /* sytling the favicon */
     padding-right: var(--instagram-padding);
 }
 .growwId0133CardTopBanner{

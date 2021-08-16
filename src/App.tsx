@@ -6,6 +6,7 @@ import {
   BrowserRouter,
   Route,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import Footer from './common/Footer';
 import Nav from './common/Nav';
@@ -21,12 +22,23 @@ class App extends React.Component<Props>{
     render(){
         return(
             <div className='src0133root'>
-                <BrowserRouter>
+                <BrowserRouter basename={process.env.PUBLIC_URL}>
                     <Nav/>
                     <Route path='/' exact component={NewsFeed}/>
                     <Route path='/myprofile' exact component={ProfilePage}/>
                     <Footer/>
                 </BrowserRouter>
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={10000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover
+                />
             </div>
         )
     };

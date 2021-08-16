@@ -7,11 +7,16 @@
     gap: 2.5px; /*same thing. key is updated in spec*/
     grid-template-columns: repeat(3, 1fr);
     width:100%;
+    --instagram-padding: 5px;
+}
+.portfolio0133profile > div {
+    width: 100%;
 }
 .profileCardImage{
     width: 100%;
-    max-height: 140px;
     object-fit: cover;
+    height: 200px;
+    overflow: contain;
     /* https://stackoverflow.com/a/31444925
     Never use img tag. Ever. Use div;
     insta uses div. */

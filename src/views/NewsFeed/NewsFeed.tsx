@@ -6,10 +6,7 @@ import React from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
-import {
-  toast,
-  ToastContainer,
-} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { getNewPageActionCreator } from '../../store/actions';
 import Card from '../../ui/card/Card';
@@ -36,7 +33,7 @@ class NewsFeed extends React.Component<Props, State>{
                     </InfiniteScroll>
                 </div>
                 <RightSideColumn/>
-                <ToastContainer
+                {/* <ToastContainer
                     position="bottom-center"
                     autoClose={10000}
                     hideProgressBar
@@ -46,11 +43,12 @@ class NewsFeed extends React.Component<Props, State>{
                     pauseOnFocusLoss={false}
                     draggable
                     pauseOnHover
-                />
+                /> */}
             </div>
         )
     }
     componentDidMount(){
+        window.scrollTo(0, 0);
         const {getNewPageActionCreator, imagesMetaData} = this.props;
         
         if(imagesMetaData.length === 0){
