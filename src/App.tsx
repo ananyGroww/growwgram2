@@ -7,12 +7,17 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Footer from './common/Footer/Footer';
-import Nav from './common/Nav/Nav';
+import Footer from './common/Footer';
+import Nav from './common/Nav';
 import NewsFeed from './views/NewsFeed/NewsFeed';
 import ProfilePage from './views/Profile/ProfilePage';
 
-class App extends React.Component{
+class App extends React.Component<Props>{
+    constructor(props:Props){
+        super(props);
+        if(localStorage.getItem("DARK_MODE") === 'dark')
+            document.documentElement.setAttribute('data-theme', 'dark');
+    }
     render(){
         return(
             <div className='src0133root'>
@@ -27,3 +32,4 @@ class App extends React.Component{
     };
 }
 export default App;
+type Props = {};

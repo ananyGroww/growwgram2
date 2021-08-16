@@ -1,4 +1,4 @@
-import './Footer.css';
+import '../styles/Footer/Footer.css';
 
 import React from 'react';
 

@@ -20,9 +20,6 @@
 .imageDetails0133portfolio{
     display: none;
 }
-/* .imageDetails0133portfolio li {
-    margin-right: 5px;
-} */
 @media screen and (min-width: 800px) {
     .portfolio0133profile{
         --max-width-card: 250px;

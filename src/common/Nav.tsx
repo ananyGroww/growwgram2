@@ -1,4 +1,4 @@
-import './Nav.css';
+import '../styles/Nav/Nav.css';
 
 import React from 'react';
 
@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
   faCloudMoonRain,
-  faCrosshairs,
   faSun,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,11 +27,6 @@ export default class Nav extends React.Component<Props, State>{
                             }
                     </li>
                     <li className='myProfile0133header'>
-                            <Link to='/testwindow'>
-                                <FontAwesomeIcon icon={faCrosshairs} size='lg'/>
-                            </Link>
-                    </li>
-                    <li className='myProfile0133header'>
                             <Link to='/myprofile'>
                                 <FontAwesomeIcon icon={faUser} size='lg'/>
                             </Link>
@@ -49,19 +43,30 @@ export default class Nav extends React.Component<Props, State>{
     setLightMode = () => {
         document.documentElement.removeAttribute('data-theme');
         localStorage.setItem("DARK_MODE",'light');
+        this.setState({darkMode: 'light'});
     };
     setDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem("DARK_MODE",'dark');
+        this.setState({darkMode: 'dark'});
     };
     currentTheme(){
         return localStorage.getItem("DARK_MODE");
+        // return this.state.darkMode;
     };
     constructor(props:Props){
         super(props);
-        if(localStorage.getItem("DARK_MODE") === null)
+        this.state = {
+            darkMode: '',
+        }
+        if(localStorage.getItem("DARK_MODE") === null){
             localStorage.setItem("DARK_MODE",'light');
+            this.setState({darkMode: 'light'});
+        }
     };
+
 };
 type Props = {};
-type State = {};
+type State = {
+    darkMode: string;
+};
