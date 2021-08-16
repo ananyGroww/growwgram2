@@ -15,7 +15,7 @@ export default class Likes extends React.Component<Props>{
         return(
             <div>
                 {/* https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react */}
-                {/* Q: How to make onClick work on FontAweseomeIcon so that when clicked, i can change isLinked prop? */}
+                {/* Q: How to make onClick work on FontAweseomeIcon so that when clicked, i can change isLiked prop? */}
                 {this.props.isLiked? <FontAwesomeIcon icon={solidthumb}/>: <FontAwesomeIcon icon={regularthumb}/> } {this.props.noOfLikes}
             </div>
         );

@@ -1,6 +1,12 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import React from 'react';
 
 import { connect } from 'react-redux';
+import {
+  toast,
+  ToastContainer,
+} from 'react-toastify';
 
 import {
   faBookmark,
@@ -18,8 +24,17 @@ class CardBottomBanner extends React.Component<Props>{
     handleLike = () => {
         console.log(`handleLike/CardBottomBanner... pressed like, saving on cloud now...`);
         const { likePressActionCreator, imgMetaData } = this.props;
-        likePressActionCreator(imgMetaData.id);
-        
+        const notify = () => toast.error(`Could not Like the post`, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+        });
+        // likePressActionCreator returns a promise
+        likePressActionCreator(imgMetaData.id).catch(notify);
     }
     render(){
         const { likes, likedByUser, caption } =this.props.imgMetaData;
@@ -28,8 +43,9 @@ class CardBottomBanner extends React.Component<Props>{
             <div className='CardBottomBanner fs12'>
                 <ul className='list0133CardBottomBanner'>
                     <li className='like' onClick={this.handleLike}>
-                        <Likes noOfLikes={likes} isLiked={likedByUser}/>
+                            <Likes noOfLikes={likes} isLiked={likedByUser}/>
                     </li>
+                    
                     <li>
                         <FontAwesomeIcon icon={faComment} size='lg'/>
                     </li>
@@ -40,6 +56,17 @@ class CardBottomBanner extends React.Component<Props>{
                         <FontAwesomeIcon icon={faBookmark} size='lg'/>
                     </li>
                 </ul>
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={10000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover
+                />
                 <div className='caption0133CardBottomBanner'>
                     {caption}
                 </div>

@@ -1,11 +1,16 @@
 import '../../styles/Profile/MyProfile.css';
 import '../../styles/Profile/ProfilePageCard.css';
 import '../../styles/Profile/ProfilePage.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import React from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
+import {
+  toast,
+  ToastContainer,
+} from 'react-toastify';
 
 import {
   myImagesListActionCreator,
@@ -40,6 +45,17 @@ class ProfilePage extends React.Component<Props, State>{
                         }
                     </InfiniteScroll>
                 </div>
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={10000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover
+                />
             </div>
         )
     };
@@ -68,13 +84,22 @@ class ProfilePage extends React.Component<Props, State>{
     getMyProfile(){
         const nameOfMyProfile = this.state.nameOfMyProfile;
         const { myProfileActionCreator, myImagesListActionCreator, myPortfolio, } = this.props;
-        myProfileActionCreator(nameOfMyProfile);
+        const notify = () => toast.error(`Could not your profile's data. Please Shift reload`, {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+         });
+        myProfileActionCreator(nameOfMyProfile).catch(notify);
         if(myPortfolio.length === 0){
             const params = {
                 pageno: this.state.pageno,
                 per_page: 20,
             };
-            myImagesListActionCreator(nameOfMyProfile, params);
+            myImagesListActionCreator(nameOfMyProfile, params).catch(notify);
         }
     }
     constructor(props:Props){

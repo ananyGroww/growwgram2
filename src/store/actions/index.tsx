@@ -19,6 +19,9 @@ export const getNewPageActionCreator = (itemsPerPage:number = 10) => {
         }catch(err){
             console.log(`Err occured when fetching new posts for 
                 news feed. Details: `, err);
+            // This is not optimal because a reject() should always have Error object
+            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
+            return Promise.reject({message:`Could not fetch posts. Please Shift reload`});
         }
     }
 };
@@ -36,6 +39,9 @@ export const myProfileActionCreator = (username:string = '2renkov') => {
             });
         }catch(err){
             console.log(`Err occured when fetching information about your account. Details: `, err);
+            // This is not optimal because a reject() should always have Error object
+            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
+            return Promise.reject({message:`Could not fetch details about your profile. Please Shift reload`});
         }
     }
 }
@@ -58,6 +64,9 @@ export const myImagesListActionCreator = (username:string, params:CONST.ParamsPo
         }catch(err){
             console.log(`Err occured when fetching your (the logged in user) 
                 portfolio of images from the server.`, err);
+            // This is not optimal because a reject() should always have Error object
+            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
+            return Promise.reject({message:`Could not fetch details about your profile. Please Shift reload`});
         }
     }
 };
@@ -75,6 +84,9 @@ export const visitSelectedUserActionCreator = (username:string = 'fakurian') => 
         }catch(err){
             console.log(`Err occured when trying to visit the selected user 
                 (Possible wrong API call). Details: `, err);
+            // This is not optimal because a reject() should always have Error object
+            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
+            return Promise.reject({message:`Could not fetch details about ${username}'s profile. Please Shift reload`});
         }
     }
 }
@@ -96,6 +108,9 @@ export const userImagesMetadataActionCreator = (username:string = '2renkov', pag
         }catch(err){
             console.log(`Err occured fetching the images of the user you are 
                 visitng currently. Details: `, err);
+            // This is not optimal because a reject() should always have Error object
+            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
+            return Promise.reject({message:`Could not fetch details about ${username}'s profile. Please Shift reload`});
         }
     }
 };
@@ -118,6 +133,10 @@ export const likePressActionCreator = (id:string) => {
         }catch(err){
             console.log(`Err occured when sending like request using API. 
                 Details: `, err);
+            // return Promise.reject(new Error(`Could not Like the post`));
+            // This is not optimal because a reject() should always have Error object
+            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
+            return Promise.reject({message:`Could not Like the post`});
         }
     }
 };

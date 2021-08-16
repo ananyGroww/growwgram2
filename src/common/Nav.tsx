@@ -12,6 +12,16 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class Nav extends React.Component<Props, State>{
+    constructor(props:Props){
+        super(props);
+        this.state = {
+            darkMode: '',
+        }
+        if(localStorage.getItem("DARK_MODE") === null){
+            localStorage.setItem("DARK_MODE",'light');
+            // this.setState({darkMode: 'light'});
+        }
+    };
     render(){
         return(
             <nav className='nav0133src'>
@@ -53,16 +63,6 @@ export default class Nav extends React.Component<Props, State>{
     currentTheme(){
         return localStorage.getItem("DARK_MODE");
         // return this.state.darkMode;
-    };
-    constructor(props:Props){
-        super(props);
-        this.state = {
-            darkMode: '',
-        }
-        if(localStorage.getItem("DARK_MODE") === null){
-            localStorage.setItem("DARK_MODE",'light');
-            this.setState({darkMode: 'light'});
-        }
     };
 
 };

@@ -1,10 +1,15 @@
 import '../../styles/NewsFeed/RightSideColumn.css';
 import '../../styles/NewsFeed/NewsFeed.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import React from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
+import {
+  toast,
+  ToastContainer,
+} from 'react-toastify';
 
 import { getNewPageActionCreator } from '../../store/actions';
 import Card from '../../ui/card/Card';
@@ -31,18 +36,48 @@ class NewsFeed extends React.Component<Props, State>{
                     </InfiniteScroll>
                 </div>
                 <RightSideColumn/>
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={10000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover
+                />
             </div>
         )
     }
     componentDidMount(){
         const {getNewPageActionCreator, imagesMetaData} = this.props;
         
-        if(imagesMetaData.length === 0)
-        getNewPageActionCreator();
+        if(imagesMetaData.length === 0){
+            const notify = () => toast.error(`Could not fetch posts. Please Shift reload`, {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+             });
+            getNewPageActionCreator().catch(notify);
+        }
     }
     loadMorePosts = () => {
         console.log(`loadMorePosts/NewsFeed: Hold on. Loading more posts...`);
-        this.props.getNewPageActionCreator();
+        const notify = () => toast.error(`Could not fetch posts. Please Shift reload`, {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+         });
+        this.props.getNewPageActionCreator().catch(notify);
     }
     renderCardsList():Array<JSX.Element>{
         const { imagesMetaData } = this.props;
