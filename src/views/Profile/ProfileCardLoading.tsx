@@ -13,7 +13,7 @@ export default class ProfileCardLoading extends React.Component {
                     width='100%'
                     height='100%'
                     viewBox="0 0 250.719 303"
-                    backgroundColor="#f688ce"
+                    backgroundColor="#00D09C"
                     foregroundColor="#69ecdd"
                 >
                     <rect x="-1" y="370" rx="0" ry="0" width="41" height="42" /> 

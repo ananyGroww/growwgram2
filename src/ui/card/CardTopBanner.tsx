@@ -1,7 +1,12 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {
+  toast,
+  ToastContainer,
+} from 'react-toastify';
 
 import {
   userImagesMetadataActionCreator,
@@ -18,27 +23,38 @@ class CardTopBanner extends React.Component<Props>{
                 <img className='pfp0133CardTopBanner' src={profile_image.small} alt={username+`'s image`}/>
                 <ul>
                     <li>
-                        <Link to='/profile'>
+                        {/* <Link to='/profile'> */}
                             <div onClick={this.gotoProfile} className='growwId0133CardTopBanner'>
                                 {username}
                             </div>
-                        </Link>
+                        {/* </Link> */}
                     </li>
                     <li>
                         {imgMetaData.location}
                     </li>
                 </ul>
+                <ToastContainer />
             </div>
         );
     };
     // THIS IS BROKEN IDK WHY
     // A: Like reduxstate data, action creators should be called with `this.props.`, not alone/direct call
     gotoProfile = () => {
-        const { visitSelectedUserActionCreator, userImagesMetadataActionCreator, imgMetaData } = this.props;
-        const { username, } = imgMetaData.user;
-        console.log(`gotoProfile/CardTopBanner is called.`);
-        visitSelectedUserActionCreator(username);
-        userImagesMetadataActionCreator(username);
+        const notify = () => toast.info(`🦄 Visiting another user's profile coming soon!`, {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            });
+        notify();
+        // const { visitSelectedUserActionCreator, userImagesMetadataActionCreator, imgMetaData } = this.props;
+        // const { username, } = imgMetaData.user;
+        // console.log(`gotoProfile/CardTopBanner is called.`);
+        // visitSelectedUserActionCreator(username);
+        // userImagesMetadataActionCreator(username);
     };
 }
 const mapStateToProps = (state:ReduxState) => {
