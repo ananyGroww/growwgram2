@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import * as CONST from '../constants/actionReducerConstants';
+import * as CONST from '../../utils/constants/actionReducerConstants';
 
 export const imagesMetaDataReducer = (imagesMetaData:Array<CONST.ImgMetaData>=[], action:action) => {
     const { type, payload } = action;

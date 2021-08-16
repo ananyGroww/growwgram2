@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import * as CONST from '../constants/actionReducerConstants';
+import * as CONST from '../../utils/constants/actionReducerConstants';
 
 export const getNewPageActionCreator = (itemsPerPage:number = 10) => {
     return async function (dispatch:Function, getState:object){

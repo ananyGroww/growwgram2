@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { ImgMetaData } from '../../constants/actionReducerConstants';
+import { ImgMetaData } from '../../utils/constants/actionReducerConstants';
 
 class CardPrimaryPicture extends React.Component<Props>{
     render(){

@@ -1,6 +1,6 @@
-import './MyProfile.css';
-import './ProfilePageCard.css';
-import './ProfilePage.css';
+import '../../styles/Profile/MyProfile.css';
+import '../../styles/Profile/ProfilePageCard.css';
+import '../../styles/Profile/ProfilePage.css';
 
 import React from 'react';
 
@@ -10,8 +10,10 @@ import { connect } from 'react-redux';
 import {
   myImagesListActionCreator,
   myProfileActionCreator,
-} from '../../actions';
-import { myProfileMetaData } from '../../constants/actionReducerConstants';
+} from '../../store/actions';
+import {
+  myProfileMetaData,
+} from '../../utils/constants/actionReducerConstants';
 import MyProfile from './MyProfile';
 import ProfileCardLoading from './ProfileCardLoading';
 import ProfilePageCard from './ProfilePageCard';
@@ -29,7 +31,7 @@ class ProfilePage extends React.Component<Props, State>{
                         next={this.loadMorePosts} 
                         hasMore={true} 
                         loader={
-                                `Please wait while GrowwGram loads more images.`
+                            <ProfileCardLoading/>
                         }
                     >
                         {myPortfolio.length === 0 ?

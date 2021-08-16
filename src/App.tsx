@@ -7,8 +7,8 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Footer from './views/Footer/Footer';
-import Nav from './views/Nav/Nav';
+import Footer from './common/Footer/Footer';
+import Nav from './common/Nav/Nav';
 import NewsFeed from './views/NewsFeed/NewsFeed';
 import ProfilePage from './views/Profile/ProfilePage';
 

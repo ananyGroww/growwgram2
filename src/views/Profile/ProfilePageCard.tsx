@@ -7,8 +7,8 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Caption from '../../common/Caption';
 import Likes from '../../ui/card/Likes';
-import Caption from './Caption';
 
 class ProfilePageCard extends React.Component<Props>{
     render(){

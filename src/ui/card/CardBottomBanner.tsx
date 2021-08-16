@@ -9,8 +9,8 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { likePressActionCreator } from '../../actions';
-import { ImgMetaData } from '../../constants/actionReducerConstants';
+import { likePressActionCreator } from '../../store/actions';
+import { ImgMetaData } from '../../utils/constants/actionReducerConstants';
 import Likes from './Likes';
 
 class CardBottomBanner extends React.Component<Props>{

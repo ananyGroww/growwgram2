@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import {
   userImagesMetadataActionCreator,
   visitSelectedUserActionCreator,
-} from '../../actions';
-import { ImgMetaData } from '../../constants/actionReducerConstants';
+} from '../../store/actions';
+import { ImgMetaData } from '../../utils/constants/actionReducerConstants';
 
 class CardTopBanner extends React.Component<Props>{
     render(){

@@ -1,14 +1,14 @@
-import './RightSideColumn.css';
-import './NewsFeed.css';
+import '../../styles/NewsFeed/RightSideColumn.css';
+import '../../styles/NewsFeed/NewsFeed.css';
 
 import React from 'react';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { connect } from 'react-redux';
 
-import { getNewPageActionCreator } from '../../actions';
-import { ImgMetaData } from '../../constants/actionReducerConstants';
+import { getNewPageActionCreator } from '../../store/actions';
 import Card from '../../ui/card/Card';
+import { ImgMetaData } from '../../utils/constants/actionReducerConstants';
 import NewsFeedLoader from './NewsFeedLoader';
 import RightSideColumn from './RightSideColumn';
 

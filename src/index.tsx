@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import {
   applyMiddleware,
   createStore,
@@ -11,15 +12,17 @@ import {
 import thunk from 'redux-thunk';
 
 import App from './App';
-import reducers from './reducers';
+import reducers from './store/reducers';
 
 const store = createStore(reducers,loadFromLocalStorage(), applyMiddleware(thunk));
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
 ReactDOM.render(
-    <Provider store={store}>
-            <App/>
-    </Provider>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Provider store={store}>
+                <App/>
+        </Provider>
+    </BrowserRouter>
     , document.querySelector('#root')
 );
 

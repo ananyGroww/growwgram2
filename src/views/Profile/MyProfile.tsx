@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { myProfileMetaData } from '../../constants/actionReducerConstants';
+import {
+  myProfileMetaData,
+} from '../../utils/constants/actionReducerConstants';
 import ProfileStatsLoading from './ProfileStatsLoading';
 
 export default class MyProfile extends React.Component<Props>{
