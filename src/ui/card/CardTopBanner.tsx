@@ -17,12 +17,12 @@ class CardTopBanner extends React.Component<Props>{
         const { imgMetaData } = this.props;
         const { username, profile_image } = imgMetaData.user;
         return(
-            <div className='CardTopBanner fs12'>
+            <div className='CardTopBanner'>
                 <img className='pfp0133CardTopBanner' src={profile_image.small} alt={username+`'s image`}/>
                 <ul>
                     <li>
                         <Link to='/visituser'>
-                            <div onClick={this.gotoProfile} className='growwId0133CardTopBanner'>
+                            <div onClick={this.gotoProfile} className='growwId0133CardTopBanner fs16'>
                                 {username}
                             </div>
                         </Link>
