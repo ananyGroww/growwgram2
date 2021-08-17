@@ -37,6 +37,7 @@ export type myProfileMetaData = {
     following: number;
     total_photos: number;
     pfpURL: string;
+    username?: string;
 };
 // If you don't want to initialize obj in argument list line, then add ?. here (In reference to reducers.tsx)
 export type visitingUser = {

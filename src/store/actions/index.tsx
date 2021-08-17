@@ -39,8 +39,6 @@ export const myProfileActionCreator = (username:string = '2renkov') => {
             });
         }catch(err){
             console.log(`Err occured when fetching information about your account. Details: `, err);
-            // This is not optimal because a reject() should always have Error object
-            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
             return Promise.reject({message:`Could not fetch details about your profile. Please Shift reload`});
         }
     }
@@ -59,59 +57,54 @@ export const myImagesListActionCreator = (username:string, params:CONST.ParamsPo
             dispatch({
                     type: CONST.LOGGED_IN_PROFILE_PORTFOLIO,
                     payload:{
-                        // myProfileImagesMetaData: response1.data,
                         myProfileImagesMetaData: imgObjList,
                     },
             });
         }catch(err){
             console.log(`Err occured when fetching your (the logged in user) 
                 portfolio of images from the server.`, err);
-            // This is not optimal because a reject() should always have Error object
-            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
             return Promise.reject({message:`Could not fetch details about your profile. Please Shift reload`});
         }
     }
 };
 
-export const visitSelectedUserActionCreator = (username:string = 'fakurian') => {
+export const visitUserProfileActionCreator = (username:string = 'fakurian') => {
     return async function (dispatch:Function, getState:object){
         try{
             const response1:any = await sendNetworkRequest(`/users/${username}`, { username: username,});
+            console.log(response1);
+            const visitUserProfileMetaData: CONST.TempObj = cleanedResponseforMyProfile(response1);
             dispatch({
                     type: CONST.VISIT_SELECTED_USER,
                     payload:{
-                        userData: response1,
+                        visitUserProfileMetaData: visitUserProfileMetaData,
                     },
             });
         }catch(err){
-            console.log(`Err occured when trying to visit the selected user 
-                (Possible wrong API call). Details: `, err);
-            // This is not optimal because a reject() should always have Error object
-            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
+            console.log(`Err occured when fetching information about their account. Details: `, err);
             return Promise.reject({message:`Could not fetch details about ${username}'s profile. Please Shift reload`});
         }
     }
 }
-export const userImagesMetadataActionCreator = (username:string = '2renkov', pageno:Number = 1) => {
+export const visitUserImagesListActionCreator = (username:string = '2renkov', params:CONST.ParamsPortfolioImages) => {
+    const { pageno, per_page } = params;
     return async function (dispatch:Function, getState:object){
         try{
             const response1:any = await sendNetworkRequest(`/users/${username}/photos`, { 
                 username: username, 
                 page: pageno, 
-                per_page:10,
+                per_page: per_page,
             });
-            let userImagesMetaData:Array<any> = response1.data.map( (imgMetaData:any) => imgMetaData );
+            const imgObjList = cleanedResponseforMyPortfolio(response1);
             dispatch({
                     type: CONST.USER_IMAGES_METADATA,
                     payload:{
-                        userImagesMetaData: userImagesMetaData,
-                    }
+                        visitUserProfileImagesMetaData: imgObjList,
+                    },
             });
         }catch(err){
             console.log(`Err occured fetching the images of the user you are 
                 visitng currently. Details: `, err);
-            // This is not optimal because a reject() should always have Error object
-            // https://javascript.info/promise-basics#:~:text=Reject%20with%20Error%20objects
             return Promise.reject({message:`Could not fetch details about ${username}'s profile. Please Shift reload`});
         }
     }

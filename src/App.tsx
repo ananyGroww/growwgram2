@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 
 import Footer from './common/Footer';
 import Nav from './common/Nav';
+import ElsesProfilePage from './views/ElsesProfile/ElsesProfilePage';
 import NewsFeed from './views/NewsFeed/NewsFeed';
 import ProfilePage from './views/Profile/ProfilePage';
 
@@ -26,6 +27,7 @@ class App extends React.Component<Props>{
                     <Nav/>
                     <Route path='/' exact component={NewsFeed}/>
                     <Route path='/myprofile' exact component={ProfilePage}/>
+                    <Route path='/visituser' exact component={ElsesProfilePage}/>
                     <Footer/>
                 </BrowserRouter>
                 <ToastContainer

@@ -46,38 +46,27 @@ export const myPortfolioReducer = ( myPortfolio:Array<any>=[], action:action ) =
     return myPortfolio;
 };
 
-export const selectedUserImagesMetadataPortfolioReducer = (visitingUserImagesMetadata:Array<any> = [], action:action) => {
-    const {type, payload} = action;
-    if( type === CONST.USER_IMAGES_METADATA){
-        return payload.userImagesMetaData;
-    }
-    return visitingUserImagesMetadata;
-}
 // Q: How to implement userData type in 1st parameter of userDataReducer?
 // A: Do it here and make a  mess or add ?. in the type object to bypass this
-export const visitSelectedUserReducer = (visitingUser:CONST.visitingUser = {}, action: action) => {
-    // FEEDBACK: make a constant file const GET_..., and import it
+const visitProfileMetaDataTemp = { growwgramId: 'emptyrightnow0133',name: '',bio: '',followers: 0,following: 0,total_photos: 0,pfpURL: '', }
+export const visitUserProfileReducer = (visitUserProfileMetaData:CONST.myProfileMetaData = visitProfileMetaDataTemp, action: action) => {
     if( action.type === CONST.VISIT_SELECTED_USER ){
-        const { username, name, bio, followers_count, following_count, profile_image, total_photos } = action.payload.userData.data;
-        let userDataTemp:CONST.visitingUser = {
-            name: name,
-            growwgramId: username,
-            bio: bio,
-            followers: followers_count,
-            following: following_count,
-            pfpURL: profile_image.large,
-            total_photos: total_photos,
-        }
-        return userDataTemp;
+        return action.payload.visitUserProfileMetaData;
     }
-    return visitingUser;
-};
-
+    return visitUserProfileMetaData;   
+};  
+export const visitUserPortfolioReducer = (visitUserPortfolio:Array<any> = [], action:action) => {
+    const { type, payload } = action;
+    if( type === CONST.USER_IMAGES_METADATA){
+        return [...visitUserPortfolio, ...payload.visitUserProfileImagesMetaData];
+    }
+    return visitUserPortfolio;
+}
 export default combineReducers({
     imagesMetaData: imagesMetaDataReducer,
 
-    visitingUser: visitSelectedUserReducer,
-    visitingUserImagesMetadata: selectedUserImagesMetadataPortfolioReducer,
+    visitUserProfileMetaData: visitUserProfileReducer,
+    visitUserPortfolio: visitUserPortfolioReducer,
 
     myProfileMetaData: myProfileReducer,
     myPortfolio: myPortfolioReducer,
