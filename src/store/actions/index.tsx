@@ -187,7 +187,7 @@ const sendNetworkRequest = async (URI:string, params:Object):Promise<any> => {
     let response:any = await axios.get(`https://api.unsplash.com${URI}`, {
         params: params,
         headers: {
-                Authorization: 'Client-ID 5TN16pc1ZRFpinyndwixG65CXhFW0rcYutEP6l9jdIw'
+                Authorization: 'Client-ID mO8x4-d4KKD_cy_u98ch7Fn2kTVALt95qZaRBxP5dm8'
             }
     });
     return response;

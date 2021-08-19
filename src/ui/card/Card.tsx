@@ -2,39 +2,23 @@ import './Card.css';
 
 import React from 'react';
 
+import { ImgMetaData } from '../../utils/constants/actionReducerConstants';
 import CardBottomBanner from './CardBottomBanner';
 import CardPrimaryPicture from './CardPrimaryPicture';
 import CardTopBanner from './CardTopBanner';
 
-class Card extends React.Component<Props>{
-    render(){
-        const { imgMetaData } = this.props;
-        return(
-            <div className='card'>
-                <CardTopBanner imgMetaData={imgMetaData}/>
-                <CardPrimaryPicture imgMetaData={imgMetaData}/>
-                <CardBottomBanner imgMetaData={imgMetaData}/>
-            </div>
-        );
-    }
-    constructor(props:Props){
-        super(props);
-        this.state = {
-            imgMetaData: this.props.imgMetaData,
-        }
-    };
-}
-export default Card;
-type Props = {
-    index: number;
-    imgMetaData: ImgMetaData;
+const Card = ({ imgMetaData, }:Props) => {
+    return(
+        <div className='card'>
+            <CardTopBanner imgMetaData={imgMetaData}/>
+            <CardPrimaryPicture imgMetaData={imgMetaData}/>
+            <CardBottomBanner imgMetaData={imgMetaData}/>
+        </div>
+    );
 };
-type ImgMetaData = {
-    url: string;
-    caption: string;
-    likes: number;
-    id: string;
-    likedByUser: boolean;
-    location: string;
-    user: any;
+export default Card;
+
+type Props = {
+    index?: number;
+    imgMetaData: ImgMetaData;
 };

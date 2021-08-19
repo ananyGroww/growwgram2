@@ -6,18 +6,25 @@ import {
 import { faThumbsUp as solidthumb } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface Props {
+const Likes = ({ noOfLikes, isLiked, }:Props) => {
+    return(
+        <div>
+            {isLiked? <FontAwesomeIcon icon={solidthumb}/>: <FontAwesomeIcon icon={regularthumb}/> } {noOfLikes}
+        </div>
+    );
+}
+export default Likes;
+// export default class Likes extends React.Component<Props>{
+//     render(){
+//         return(
+//             <div>
+//                 {this.props.isLiked? <FontAwesomeIcon icon={solidthumb}/>: <FontAwesomeIcon icon={regularthumb}/> } {this.props.noOfLikes}
+//             </div>
+//         );
+//     }
+// };
+
+type Props = {
     noOfLikes: number;
     isLiked: boolean;
 };
-export default class Likes extends React.Component<Props>{
-    render(){
-        return(
-            <div>
-                {/* https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react */}
-                {/* Q: How to make onClick work on FontAweseomeIcon so that when clicked, i can change isLiked prop? */}
-                {this.props.isLiked? <FontAwesomeIcon icon={solidthumb}/>: <FontAwesomeIcon icon={regularthumb}/> } {this.props.noOfLikes}
-            </div>
-        );
-    }
-}

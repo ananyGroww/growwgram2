@@ -26,16 +26,18 @@ ReactDOM.render(
     </BrowserRouter>
     , document.querySelector('#root')
 );
+
 // Trying using lscache
 function saveToLocalStorage(state:any) {
     try {
         const serialisedState = JSON.stringify(state);
         // localStorage.setItem("persistantState", serialisedState);
-        lscache.set('ReduxState', serialisedState, 1); // 1 minute life of cache
+        const cacheLife = 1; // in minutes;
+        lscache.set('ReduxState', serialisedState, cacheLife);
     } catch (e) {
         console.warn(e);
     }
-}
+};
 // load string from localStarage and convert into an Object
 // invalid output must be undefined
 function loadFromLocalStorage() {
@@ -48,26 +50,4 @@ function loadFromLocalStorage() {
         console.warn(e);
         return undefined;
     }
-}
-
-// convert object to string and store in localStorage
-// function saveToLocalStorage(state:any) {
-//     try {
-//         const serialisedState = JSON.stringify(state);
-//         localStorage.setItem("persistantState", serialisedState);
-//     } catch (e) {
-//         console.warn(e);
-//     }
-// }
-// // load string from localStarage and convert into an Object
-// // invalid output must be undefined
-// function loadFromLocalStorage() {
-//     try {
-//         const serialisedState = localStorage.getItem("persistantState");
-//         if (serialisedState === null) return undefined;
-//         return JSON.parse(serialisedState);
-//     } catch (e) {
-//         console.warn(e);
-//         return undefined;
-//     }
-// }
+};
