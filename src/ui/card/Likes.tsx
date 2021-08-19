@@ -10,6 +10,8 @@ interface Props {
     noOfLikes: number;
     isLiked: boolean;
 };
+
+// adding comment to learn git: ignore
 export default class Likes extends React.Component<Props>{
     render(){
         return(
