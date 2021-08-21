@@ -14,15 +14,6 @@ const Likes = ({ noOfLikes, isLiked, }:Props) => {
     );
 }
 export default Likes;
-// export default class Likes extends React.Component<Props>{
-//     render(){
-//         return(
-//             <div>
-//                 {this.props.isLiked? <FontAwesomeIcon icon={solidthumb}/>: <FontAwesomeIcon icon={regularthumb}/> } {this.props.noOfLikes}
-//             </div>
-//         );
-//     }
-// };
 
 type Props = {
     noOfLikes: number;

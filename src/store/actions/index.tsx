@@ -6,7 +6,7 @@ export const getNewPageActionCreator = (itemsPerPage:number = 10) => {
     return async function (dispatch:Function, getState:object){
         try{   
             const response1:any = await sendNetworkRequest(`/photos/random`, { 
-                query: 'forest mountain', 
+                query: 'forest road', 
                 count: itemsPerPage,
             });
             let imgObjList = cleanedResponseforNewsFeed(response1);
